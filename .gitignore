@@ -1,0 +1,22 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Node (if added later)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Build artifacts
+dist/
+*.map

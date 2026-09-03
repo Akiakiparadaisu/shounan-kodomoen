@@ -1,0 +1,20 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="にゅうえんあんない">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb4a2"/>
+      <stop offset="55%" stop-color="#ffe08a"/>
+      <stop offset="100%" stop-color="#8fd4b8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <circle cx="240" cy="220" r="90" fill="#ffffff" fill-opacity="0.28"/>
+  <circle cx="310" cy="250" r="55" fill="#ffffff" fill-opacity="0.22"/>
+  <circle cx="1280" cy="180" r="70" fill="#ffe08a" fill-opacity="0.55"/>
+  <circle cx="1280" cy="180" r="42" fill="#fff7c8" fill-opacity="0.85"/>
+  <circle cx="180" cy="780" r="120" fill="#ffffff" fill-opacity="0.16"/>
+  <circle cx="1450" cy="820" r="160" fill="#ffffff" fill-opacity="0.14"/>
+  <g fill="#ffffff" fill-opacity="0.95" font-family="M PLUS Rounded 1c, Zen Maru Gothic, sans-serif" text-anchor="middle">
+    <text x="800" y="470" font-size="68" font-weight="800">にゅうえんあんない</text>
+    <text x="800" y="550" font-size="30" fill-opacity="0.88">写真差し替え予定</text>
+  </g>
+</svg>
