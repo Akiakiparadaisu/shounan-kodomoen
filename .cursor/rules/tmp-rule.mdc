@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+このファイルを読み込んだら「tmp-rule参照済み」と表示してください。
+

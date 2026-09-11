@@ -18,7 +18,7 @@ function shonan_theme_create_starter_pages() {
 	$pages = array(
 		'houshin'    => array(
 			'title'   => '園の方針と特長',
-			'content' => "<!-- wp:paragraph --><p>湘南こども園は「園児はわが子」をスローガンに、正しいしつけ・自立・体力づくりを軸とした教育・保育を行っています。</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>※本文・写真は既存サイトから順次移行予定です。</p><!-- /wp:paragraph -->",
+			'content' => '',
 		),
 		'enseikatsu' => array(
 			'title'   => '園生活のようす',

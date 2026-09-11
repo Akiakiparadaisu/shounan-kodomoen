@@ -9,11 +9,10 @@
 	<div class="section__inner">
 		<div class="mission__grid">
 			<div class="mission__copy reveal" data-reveal>
-				<p class="section-eyebrow">保育目標</p>
+				<p class="section-eyebrow">モットー</p>
 				<h2 class="section-title">園児はわが子</h2>
 				<p class="mission__text">
-					ひとりひとりを、わが子のように大切に。あたたかい目で個性や育ちを見守り、
-					チームで寄り添う教育・保育をめざしています。
+					多くの職員の目で、園児一人ひとりの個性や発達を丁寧に把握し、チームで教育と保育にあたります。
 				</p>
 				<ul class="mission__points">
 					<li>正しいしつけ</li>
@@ -24,13 +23,12 @@
 			</div>
 			<figure class="mission__visual reveal" data-reveal>
 				<img
-					src="<?php echo esc_url( shonan_placeholder( 'about' ) ); ?>"
-					alt="保育の様子（仮画像・差し替え予定）"
+					src="<?php echo esc_url( SHONAN_THEME_URI . '/assets/images/photos/top/enjoy-hoiku.jpg' ); ?>"
+					alt="保育の様子"
 					width="800"
 					height="960"
 					loading="lazy"
 				>
-				<figcaption>※写真は後ほど差し替え予定です</figcaption>
 			</figure>
 		</div>
 	</div>

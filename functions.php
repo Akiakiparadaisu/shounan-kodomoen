@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SHONAN_THEME_VERSION', '1.1.0' );
+define( 'SHONAN_THEME_VERSION', '1.1.4' );
 define( 'SHONAN_THEME_DIR', get_template_directory() );
 define( 'SHONAN_THEME_URI', get_template_directory_uri() );
 

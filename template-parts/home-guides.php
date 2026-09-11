@@ -9,7 +9,7 @@ $guides = array(
 	array(
 		'title' => '保護者の方へ',
 		'lead'  => '方針・園生活・入園案内',
-		'image' => 'life',
+		'image' => 'enseikatsu',
 		'links' => array(
 			array( 'label' => '園の方針と特徴', 'url' => '/houshin/' ),
 			array( 'label' => '園生活のようす', 'url' => '/enseikatsu/' ),
@@ -19,7 +19,7 @@ $guides = array(
 	array(
 		'title' => '就職希望の方へ',
 		'lead'  => '50年の実績と職場環境',
-		'image' => 'career',
+		'image' => 'kyujin',
 		'links' => array(
 			array( 'label' => '50年の幼児教育実績', 'url' => '/history/' ),
 			array( 'label' => '園の方針と特徴', 'url' => '/houshin/' ),

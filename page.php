@@ -26,7 +26,7 @@ get_header();
 				</figure>
 			<?php else : ?>
 				<figure class="page-featured page-featured--placeholder">
-					<img src="<?php echo esc_url( shonan_placeholder( 'about' ) ); ?>" alt="写真準備中（仮画像）" width="1200" height="560" loading="lazy">
+					<img src="<?php echo esc_url( shonan_placeholder( is_page() ? get_post_field( 'post_name', get_the_ID() ) : 'top' ) ); ?>" alt="写真準備中（仮画像）" width="1200" height="560" loading="lazy">
 					<figcaption>※写真は後ほど差し替え予定です</figcaption>
 				</figure>
 			<?php endif; ?>

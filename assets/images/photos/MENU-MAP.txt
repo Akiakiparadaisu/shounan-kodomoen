@@ -1,0 +1,49 @@
+﻿# メニュー対応表（フォルダ名 = URLスラッグ）
+
+top/                          … トップページ
+  top.svg
+
+houshin/                      … 園の方針と特長
+  houshin.svg
+  en-no-houshin/              … 園の方針
+  tokubetsu-hoiku/            … 特別保育
+  pre-hoiku/                  … プレ保育(湘南ジュニア)とは？
+
+enseikatsu/                   … 園生活のようす
+  enseikatsu.svg
+  ichinichi-no-nagare/        … 1日の流れ
+  nenkan-gyoji/               … 年間行事
+  anzen-eisei/                … 安全・衛生管理
+  en-bus/                     … 園バス
+
+shisetsu/                     … 園の施設
+  shisetsu.svg
+  ensha/                      … 園舎紹介
+  access/                     … アクセス
+
+nyuen/                        … 入園のご希望の方へ
+  nyuen.svg
+  zehi-shounan/               … ぜひ、湘南こども園へ！
+  taishoji-teiin/             … 対象児/定員
+  nyuen-setsumeikai/          … 入園説明会
+  gansho/                     … 入園願書配布・受付
+  hoiku-jikan/                … 保育時間
+  seifuku/                    … 制服と体操服
+
+kyujin/                       … 求職中の方へ
+  kyujin.svg
+  message/                    … 保育教諭を目指す方へのメッセージ
+  shokuba/                    … 湘南こども園の職場環境
+  access/                     … アクセス
+
+history/                      … 50年の幼児教育実績
+  history.svg
+  why-started/                … なぜ幼児教育を始めたのか？
+  fuji-houshin/               … ふじ幼児園の各種方針
+  enji-kakuho/                … 園児確保の取り組み
+  katsudo/                    … 園を支えた活動
+
+mirai/                        … 将来の幼児教育
+  mirai.svg
+
+# 差し替え時は同名で .jpg / .png / .webp を追加してください（例: top/top.jpg）

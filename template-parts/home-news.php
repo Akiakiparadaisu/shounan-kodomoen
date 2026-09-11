@@ -71,7 +71,7 @@ $fallback_news = array(
 			<aside class="news-aside reveal" data-reveal>
 				<figure class="news-aside__media">
 					<img
-						src="<?php echo esc_url( shonan_placeholder( 'news' ) ); ?>"
+						src="<?php echo esc_url( shonan_placeholder( 'top' ) ); ?>"
 						alt="お知らせビジュアル（仮画像）"
 						width="640"
 						height="480"

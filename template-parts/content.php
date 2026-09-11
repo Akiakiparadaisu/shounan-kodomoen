@@ -13,7 +13,7 @@
 			</figure>
 		<?php else : ?>
 			<figure class="post-item__thumb post-item__thumb--placeholder">
-				<img src="<?php echo esc_url( shonan_placeholder( 'news' ) ); ?>" alt="" width="640" height="480" loading="lazy">
+				<img src="<?php echo esc_url( shonan_placeholder( 'top' ) ); ?>" alt="" width="640" height="480" loading="lazy">
 			</figure>
 		<?php endif; ?>
 		<div class="post-item__body">

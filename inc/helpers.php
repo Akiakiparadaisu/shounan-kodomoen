@@ -10,25 +10,91 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * プレースホルダー画像のURLを返す
+ * メニュー対応の画像URLを返す
  *
- * @param string $name 画像ファイル名（拡張子なし可）.
+ * 優先順:
+ * 1. assets/images/photos/{menu}/{menu}.{jpg|png|webp|svg}
+ * 2. assets/images/photos/{menu}/{submenu}/{submenu}.{ext}
+ *
+ * @param string $name メニュースラッグ（例: top, houshin, enseikatsu/en-bus）.
  * @return string
  */
-function shonan_placeholder( $name = 'hero' ) {
-	$map = array(
-		'hero'      => 'placeholder-hero.svg',
-		'life'      => 'placeholder-life.svg',
-		'facility'  => 'placeholder-facility.svg',
-		'admission' => 'placeholder-admission.svg',
-		'career'    => 'placeholder-career.svg',
-		'history'   => 'placeholder-history.svg',
-		'about'     => 'placeholder-about.svg',
-		'news'      => 'placeholder-news.svg',
-	);
+function shonan_placeholder( $name = 'top' ) {
+	$name = trim( str_replace( '\\', '/', $name ), '/' );
+	$parts = array_values( array_filter( explode( '/', $name ) ) );
 
-	$file = isset( $map[ $name ] ) ? $map[ $name ] : 'placeholder-hero.svg';
-	return SHONAN_THEME_URI . '/assets/images/' . $file;
+	if ( empty( $parts ) ) {
+		$parts = array( 'top' );
+	}
+
+	$menu    = $parts[0];
+	$leaf    = end( $parts );
+	$rel_dir = 'photos/' . implode( '/', $parts );
+	$base    = SHONAN_THEME_DIR . '/assets/images/' . $rel_dir;
+
+	$extensions = array( 'jpg', 'jpeg', 'png', 'webp', 'svg' );
+	foreach ( $extensions as $ext ) {
+		$file = $base . '/' . $leaf . '.' . $ext;
+		if ( file_exists( $file ) ) {
+			return SHONAN_THEME_URI . '/assets/images/' . $rel_dir . '/' . $leaf . '.' . $ext;
+		}
+	}
+
+	// フォールバック: 親メニュー画像
+	$parent = SHONAN_THEME_DIR . '/assets/images/photos/' . $menu . '/' . $menu . '.svg';
+	if ( file_exists( $parent ) ) {
+		return SHONAN_THEME_URI . '/assets/images/photos/' . $menu . '/' . $menu . '.svg';
+	}
+
+	return SHONAN_THEME_URI . '/assets/images/photos/top/top.svg';
+}
+
+/**
+ * photos/ 配下の実ファイルURLを返す
+ *
+ * @param string $relative photos/ からの相対パス（例: houshin/tokubetsu-hoiku/kokusai.jpg）.
+ * @return string
+ */
+function shonan_photo( $relative ) {
+	$relative = ltrim( str_replace( '\\', '/', $relative ), '/' );
+	$relative = preg_replace( '#^photos/#', '', $relative );
+
+	$full = SHONAN_THEME_DIR . '/assets/images/photos/' . $relative;
+	if ( file_exists( $full ) ) {
+		return SHONAN_THEME_URI . '/assets/images/photos/' . $relative;
+	}
+
+	$dir = dirname( $relative );
+	return shonan_placeholder( '.' === $dir ? 'top' : $dir );
+}
+
+/**
+ * documents/ 配下のファイルURLを返す
+ *
+ * @param string $relative documents/ からの相対パス.
+ * @return string|false ファイルがなければ false.
+ */
+function shonan_document( $relative ) {
+	$relative = ltrim( str_replace( '\\', '/', $relative ), '/' );
+	$relative = preg_replace( '#^documents/#', '', $relative );
+
+	$full = SHONAN_THEME_DIR . '/assets/documents/' . $relative;
+	if ( ! file_exists( $full ) ) {
+		return false;
+	}
+
+	return SHONAN_THEME_URI . '/assets/documents/' . $relative;
+}
+
+/**
+ * 写真ディレクトリの相対パス（メニュー対応）
+ *
+ * @param string $name メニュースラッグ.
+ * @return string
+ */
+function shonan_photo_dir( $name = 'top' ) {
+	$name = trim( str_replace( '\\', '/', $name ), '/' );
+	return 'assets/images/photos/' . $name;
 }
 
 /**

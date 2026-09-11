@@ -10,6 +10,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * ファイル更新時刻をバージョンに使う（手動のバージョン上げ不要）
+ *
+ * @param string $relative_path テーマ内の相対パス.
+ * @return string|bool
+ */
+function shonan_asset_version( $relative_path ) {
+	$path = SHONAN_THEME_DIR . '/' . ltrim( $relative_path, '/' );
+	return file_exists( $path ) ? (string) filemtime( $path ) : false;
+}
+
+/**
  * フロント用アセット
  */
 function shonan_enqueue_assets() {
@@ -24,14 +35,14 @@ function shonan_enqueue_assets() {
 		'shonan-main',
 		SHONAN_THEME_URI . '/assets/css/main.css',
 		array( 'shonan-fonts' ),
-		SHONAN_THEME_VERSION
+		shonan_asset_version( 'assets/css/main.css' )
 	);
 
 	wp_enqueue_script(
 		'shonan-main',
 		SHONAN_THEME_URI . '/assets/js/main.js',
 		array(),
-		SHONAN_THEME_VERSION,
+		shonan_asset_version( 'assets/js/main.js' ),
 		true
 	);
 }

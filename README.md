@@ -14,7 +14,8 @@
 - `front-page.php` … トップページ構成
 - `page.php` / `single.php` … 下層・お知らせ
 - `assets/css/main.css` … デザイン本体
-- `assets/images/placeholder-*.svg` … 仮画像
+- `assets/images/photos/` … メニュー対応の写真フォルダ（`MENU-MAP.txt` 参照）
+- 各フォルダ内の `{スラッグ}.svg` … 仮画像（同名の jpg/png/webp で差し替え）
 
 ## メニュー位置
 
