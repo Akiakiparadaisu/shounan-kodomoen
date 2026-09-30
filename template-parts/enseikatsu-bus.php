@@ -67,6 +67,7 @@ $bus_stops = array(
 					</figure>
 				</li>
 				<li class="bus-stop">
+					<p class="bus-stop__focus">バスの中も保育</p>
 					<?php foreach ( $bus_stops as $stop ) : ?>
 						<div class="bus-stop__block">
 							<h3 class="bus-stop__title"><?php echo esc_html( $stop['title'] ); ?></h3>

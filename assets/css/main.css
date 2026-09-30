@@ -2799,6 +2799,19 @@ html.js-reveal .year-events__grid:not(.is-ready) .event-card {
   font-size: 1.05rem;
 }
 
+.bus-stop__focus {
+  margin: 0 0 0.75rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #67bfe0, var(--color-sky-deep));
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-align: center;
+  box-shadow: 0 4px 0 rgba(58, 143, 173, 0.25);
+}
+
 .bus-stop__text {
   margin: 0;
   color: var(--color-muted);
