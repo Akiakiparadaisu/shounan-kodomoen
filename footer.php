@@ -12,7 +12,21 @@
 
 	<div class="site-footer__inner">
 		<div class="site-footer__brand">
-			<p class="site-footer__name">湘南こども園</p>
+			<a class="site-footer__logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+				<span class="site-footer__mark" aria-hidden="true">
+					<img
+						src="<?php echo esc_url( SHONAN_THEME_URI . '/assets/images/photos/en_icon.png' ); ?>"
+						alt=""
+						width="52"
+						height="52"
+						decoding="async"
+					>
+				</span>
+				<span class="site-footer__names">
+					<span class="site-footer__corp">学校法人 正栄学園</span>
+					<span class="site-footer__name">湘南こども園</span>
+				</span>
+			</a>
 			<p class="site-footer__address">
 				〒253-0113<br>
 				神奈川県高座郡寒川町大曲1-1-6<br>

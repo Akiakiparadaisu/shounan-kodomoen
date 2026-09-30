@@ -24,9 +24,15 @@ function shonan_asset_version( $relative_path ) {
  * フロント用アセット
  */
 function shonan_enqueue_assets() {
+	$font_url = 'https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap';
+
+	if ( is_page( 'history' ) ) {
+		$font_url = 'https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Shippori+Mincho:wght@500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap';
+	}
+
 	wp_enqueue_style(
 		'shonan-fonts',
-		'https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap',
+		$font_url,
 		array(),
 		null
 	);

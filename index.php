@@ -15,11 +15,11 @@ get_header();
 		<h1 class="page-title">
 			<?php
 			if ( is_home() && ! is_front_page() ) {
-				echo esc_html( get_the_title( get_option( 'page_for_posts' ) ) ?: 'お知らせ' );
+				echo esc_html( get_the_title( get_option( 'page_for_posts' ) ) ?: 'これまでの活動' );
 			} elseif ( is_archive() ) {
 				the_archive_title();
 			} else {
-				echo esc_html__( 'お知らせ', 'shonan-kodomoen' );
+				echo esc_html__( 'これまでの活動', 'shonan-kodomoen' );
 			}
 			?>
 		</h1>

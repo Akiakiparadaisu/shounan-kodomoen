@@ -22,27 +22,27 @@ function shonan_theme_create_starter_pages() {
 		),
 		'enseikatsu' => array(
 			'title'   => '園生活のようす',
-			'content' => "<!-- wp:heading --><h2>１日の流れ</h2><!-- /wp:heading --><!-- wp:paragraph --><p>0・1・2歳児／3・4・5歳児それぞれの一日の流れをご紹介します。詳細は移行時に更新します。</p><!-- /wp:paragraph -->",
+			'content' => '',
 		),
 		'shisetsu'   => array(
 			'title'   => '園の施設',
-			'content' => "<!-- wp:heading --><h2>アクセス</h2><!-- /wp:heading --><!-- wp:paragraph --><p>〒253-0113 神奈川県高座郡寒川町大曲1-1-6<br>最寄り駅：寒川駅（徒歩14分）／香川駅（徒歩12分）</p><!-- /wp:paragraph -->",
+			'content' => '',
 		),
 		'nyuen'      => array(
 			'title'   => '入園のご希望の方へ',
-			'content' => "<!-- wp:paragraph --><p>入園説明会前に、ぜひ園見学にお越しください。園の環境や設備、方針・特徴をご案内します。</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>お問い合わせ：TEL 0467-84-9229</p><!-- /wp:paragraph -->",
+			'content' => '',
 		),
 		'kyujin'     => array(
 			'title'   => '求職中の方へ',
-			'content' => "<!-- wp:paragraph --><p>保育教諭を目指す方へのメッセージ、職場環境のご案内です。詳細は順次更新します。</p><!-- /wp:paragraph -->",
+			'content' => '',
 		),
 		'history'    => array(
 			'title'   => '50年の幼児教育実績',
-			'content' => "<!-- wp:paragraph --><p>ふじ幼児園時代から続く幼児教育の歩みと、園を支えてきた活動をご紹介します。</p><!-- /wp:paragraph -->",
+			'content' => '',
 		),
 		'mirai'      => array(
 			'title'   => '将来の幼児教育',
-			'content' => "<!-- wp:paragraph --><p>これからの幼児教育に向けた取り組みについてご紹介します。</p><!-- /wp:paragraph -->",
+			'content' => '',
 		),
 	);
 
@@ -95,6 +95,28 @@ function shonan_theme_create_starter_pages() {
 		update_option( 'page_on_front', (int) $front_id );
 	}
 
+	// 投稿一覧（これまでの活動）
+	$posts_page = get_page_by_path( 'katsudo' );
+	if ( ! $posts_page ) {
+		$posts_page_id = wp_insert_post(
+			array(
+				'post_title'   => 'これまでの活動',
+				'post_name'    => 'katsudo',
+				'post_content' => '',
+				'post_status'  => 'publish',
+				'post_type'    => 'page',
+				'post_author'  => 1,
+			),
+			true
+		);
+	} else {
+		$posts_page_id = $posts_page->ID;
+	}
+
+	if ( ! is_wp_error( $posts_page_id ) && $posts_page_id ) {
+		update_option( 'page_for_posts', (int) $posts_page_id );
+	}
+
 	// メニュー自動作成
 	$menu_name = '湘南こども園 メインメニュー';
 	$menu      = wp_get_nav_menu_object( $menu_name );
@@ -110,8 +132,9 @@ function shonan_theme_create_starter_pages() {
 			array( 'title' => '園の施設', 'slug' => 'shisetsu' ),
 			array( 'title' => '入園のご希望', 'slug' => 'nyuen' ),
 			array( 'title' => '求職中の方へ', 'slug' => 'kyujin' ),
-			array( 'title' => '50年の実績', 'slug' => 'history' ),
+			array( 'title' => '50年の幼児教育実績', 'slug' => 'history' ),
 			array( 'title' => '将来の幼児教育', 'slug' => 'mirai' ),
+			array( 'title' => '在園の保護者へ', 'url' => home_url( '/shorui/' ) ),
 		);
 
 		foreach ( $items as $item ) {

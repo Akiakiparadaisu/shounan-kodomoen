@@ -9,7 +9,7 @@ $guides = array(
 	array(
 		'title' => '保護者の方へ',
 		'lead'  => '方針・園生活・入園案内',
-		'image' => 'enseikatsu',
+		'image' => 'top/35flow-16001900.jpg',
 		'links' => array(
 			array( 'label' => '園の方針と特徴', 'url' => '/houshin/' ),
 			array( 'label' => '園生活のようす', 'url' => '/enseikatsu/' ),
@@ -19,7 +19,7 @@ $guides = array(
 	array(
 		'title' => '就職希望の方へ',
 		'lead'  => '50年の実績と職場環境',
-		'image' => 'kyujin',
+		'image' => 'top/1_ev-2.jpg',
 		'links' => array(
 			array( 'label' => '50年の幼児教育実績', 'url' => '/history/' ),
 			array( 'label' => '園の方針と特徴', 'url' => '/houshin/' ),
@@ -29,7 +29,7 @@ $guides = array(
 	array(
 		'title' => '園について詳しく',
 		'lead'  => '歴史とこれからの幼児教育',
-		'image' => 'history',
+		'image' => 'top/history1.jpg',
 		'links' => array(
 			array( 'label' => '50年の幼児教育実績', 'url' => '/history/' ),
 			array( 'label' => '園の施設・アクセス', 'url' => '/shisetsu/' ),
@@ -51,10 +51,8 @@ $guides = array(
 				<article class="guide-block reveal" data-reveal>
 					<figure class="guide-block__media">
 						<img
-							src="<?php echo esc_url( shonan_placeholder( $guide['image'] ) ); ?>"
-							alt="<?php echo esc_attr( $guide['title'] . '（仮画像）' ); ?>"
-							width="800"
-							height="500"
+							src="<?php echo esc_url( shonan_photo( $guide['image'] ) ); ?>"
+							alt="<?php echo esc_attr( $guide['title'] ); ?>"
 							loading="lazy"
 						>
 					</figure>

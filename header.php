@@ -9,6 +9,7 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>document.documentElement.classList.add('js-reveal');</script>
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -19,14 +20,21 @@
 <header class="site-header" id="site-header">
 	<div class="site-header__inner">
 		<div class="site-branding">
-			<?php if ( has_custom_logo() ) : ?>
-				<?php the_custom_logo(); ?>
-			<?php else : ?>
-				<a class="site-logo-text" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<span class="site-logo-text__mark" aria-hidden="true"></span>
+			<a class="site-logo-text" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+				<span class="site-logo-text__mark" aria-hidden="true">
+					<img
+						src="<?php echo esc_url( SHONAN_THEME_URI . '/assets/images/photos/en_icon.png' ); ?>"
+						alt=""
+						width="44"
+						height="44"
+						decoding="async"
+					>
+				</span>
+				<span class="site-logo-text__names">
+					<span class="site-logo-text__corp">学校法人 正栄学園</span>
 					<span class="site-logo-text__name"><?php bloginfo( 'name' ); ?></span>
-				</a>
-			<?php endif; ?>
+				</span>
+			</a>
 		</div>
 
 		<button

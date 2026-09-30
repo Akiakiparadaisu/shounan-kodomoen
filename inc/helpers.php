@@ -83,7 +83,8 @@ function shonan_document( $relative ) {
 		return false;
 	}
 
-	return SHONAN_THEME_URI . '/assets/documents/' . $relative;
+	$parts = array_map( 'rawurlencode', explode( '/', $relative ) );
+	return SHONAN_THEME_URI . '/assets/documents/' . implode( '/', $parts );
 }
 
 /**
@@ -129,12 +130,16 @@ function shonan_default_nav_items() {
 			'url'   => home_url( '/kyujin/' ),
 		),
 		array(
-			'label' => '50年の実績',
+			'label' => '50年の幼児教育実績',
 			'url'   => home_url( '/history/' ),
 		),
 		array(
 			'label' => '将来の幼児教育',
 			'url'   => home_url( '/mirai/' ),
+		),
+		array(
+			'label' => '在園の保護者へ',
+			'url'   => home_url( '/shorui/' ),
 		),
 	);
 }
@@ -154,6 +159,215 @@ function shonan_fallback_menu() {
 	}
 	echo '</ul>';
 }
+
+/**
+ * 「これまでの活動」投稿一覧ページのURL
+ *
+ * @return string
+ */
+function shonan_activities_archive_url() {
+	$page_id = shonan_ensure_activities_page();
+	if ( $page_id ) {
+		return get_permalink( $page_id );
+	}
+	return home_url( '/katsudo/' );
+}
+
+/**
+ * 投稿一覧用固定ページを用意し page_for_posts に設定
+ *
+ * @return int ページID（失敗時は 0）
+ */
+function shonan_ensure_activities_page() {
+	$posts_page_id = (int) get_option( 'page_for_posts' );
+	if ( $posts_page_id && get_post( $posts_page_id ) ) {
+		return $posts_page_id;
+	}
+
+	$existing = get_page_by_path( 'katsudo' );
+	if ( $existing ) {
+		update_option( 'page_for_posts', (int) $existing->ID );
+		return (int) $existing->ID;
+	}
+
+	$page_id = wp_insert_post(
+		array(
+			'post_title'   => 'これまでの活動',
+			'post_name'    => 'katsudo',
+			'post_content' => '',
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+			'post_author'  => 1,
+		),
+		true
+	);
+
+	if ( is_wp_error( $page_id ) || ! $page_id ) {
+		return 0;
+	}
+
+	update_option( 'page_for_posts', (int) $page_id );
+	return (int) $page_id;
+}
+
+/**
+ * 在園の保護者向けページを用意する
+ *
+ * @return int
+ */
+function shonan_ensure_shorui_page() {
+	$existing = get_page_by_path( 'shorui' );
+	if ( $existing ) {
+		if ( '在園の保護者へ' !== $existing->post_title ) {
+			wp_update_post(
+				array(
+					'ID'         => $existing->ID,
+					'post_title' => '在園の保護者へ',
+				)
+			);
+		}
+		return (int) $existing->ID;
+	}
+
+	$page_id = wp_insert_post(
+		array(
+			'post_title'  => '在園の保護者へ',
+			'post_name'   => 'shorui',
+			'post_status' => 'publish',
+			'post_type'   => 'page',
+			'post_author' => 1,
+		),
+		true
+	);
+
+	return is_wp_error( $page_id ) ? 0 : (int) $page_id;
+}
+
+/**
+ * 不要なメニューを外し、在園の保護者へを追加する
+ */
+function shonan_ensure_nav_extras() {
+	if ( 'parents' === get_option( 'shonan_nav_extras' ) ) {
+		return;
+	}
+
+	$page_id = shonan_ensure_shorui_page();
+	$url     = $page_id ? get_permalink( $page_id ) : home_url( '/shorui/' );
+
+	$remove    = array( '湘南ジュニア', '書類ダウンロード', 'これまでの活動', '在園の保護者の方へ' );
+	$locations = get_theme_mod( 'nav_menu_locations', array() );
+	$menu_ids  = array_values( array_unique( array_filter( array_map( 'intval', (array) $locations ) ) ) );
+
+	if ( ! $menu_ids ) {
+		$menus = wp_get_nav_menus();
+		if ( $menus ) {
+			$menu_ids[] = (int) $menus[0]->term_id;
+		}
+	}
+
+	foreach ( $menu_ids as $menu_id ) {
+		$items = wp_get_nav_menu_items( $menu_id );
+		$has   = false;
+		$pos   = 1;
+		if ( $items ) {
+			$pos = count( $items ) + 1;
+			foreach ( $items as $item ) {
+				if ( in_array( $item->title, $remove, true ) ) {
+					wp_delete_post( $item->ID, true );
+					continue;
+				}
+				if ( '在園の保護者へ' === $item->title ) {
+					$has = true;
+				}
+				if ( '求職中の方へ' === $item->title ) {
+					$pos = (int) $item->menu_order + 1;
+				}
+			}
+		}
+		if ( $has ) {
+			continue;
+		}
+		wp_update_nav_menu_item(
+			$menu_id,
+			0,
+			array(
+				'menu-item-title'    => '在園の保護者へ',
+				'menu-item-url'      => $url,
+				'menu-item-status'   => 'publish',
+				'menu-item-type'     => 'custom',
+				'menu-item-position' => $pos,
+			)
+		);
+	}
+
+	update_option( 'shonan_nav_extras', 'parents' );
+}
+add_action( 'init', 'shonan_ensure_nav_extras' );
+add_action( 'init', 'shonan_swap_parents_nav_order', 20 );
+
+/**
+ * 「在園の保護者へ」と「将来の幼児教育」の表示順を入れ替える
+ */
+function shonan_swap_parents_nav_order() {
+	if ( 'swapped' === get_option( 'shonan_nav_parents_order' ) ) {
+		return;
+	}
+
+	$locations = get_theme_mod( 'nav_menu_locations', array() );
+	$menu_ids  = array_values( array_unique( array_filter( array_map( 'intval', (array) $locations ) ) ) );
+
+	foreach ( $menu_ids as $menu_id ) {
+		$items   = wp_get_nav_menu_items( $menu_id );
+		$parents = null;
+		$future  = null;
+		if ( ! $items ) {
+			continue;
+		}
+		foreach ( $items as $item ) {
+			if ( '在園の保護者へ' === $item->title ) {
+				$parents = $item;
+			}
+			if ( '将来の幼児教育' === $item->title ) {
+				$future = $item;
+			}
+		}
+		if ( ! $parents || ! $future ) {
+			continue;
+		}
+		$parents_order = (int) $parents->menu_order;
+		$future_order  = (int) $future->menu_order;
+		wp_update_post(
+			array(
+				'ID'         => $parents->ID,
+				'menu_order' => $future_order,
+			)
+		);
+		wp_update_post(
+			array(
+				'ID'         => $future->ID,
+				'menu_order' => $parents_order,
+			)
+		);
+	}
+
+	update_option( 'shonan_nav_parents_order', 'swapped' );
+}
+
+/**
+ * 既存メニューの旧表記を新表記へ
+ *
+ * @param string  $title メニュータイトル.
+ * @param WP_Post $item  メニュー項目.
+ * @return string
+ */
+function shonan_nav_menu_item_title( $title, $item ) {
+	$old = array( '50年の実績', '５０年の実績' );
+	if ( in_array( $title, $old, true ) ) {
+		return '50年の幼児教育実績';
+	}
+	return $title;
+}
+add_filter( 'nav_menu_item_title', 'shonan_nav_menu_item_title', 10, 2 );
 
 /**
  * パンくず

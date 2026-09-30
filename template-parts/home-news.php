@@ -1,9 +1,11 @@
 <?php
 /**
- * ホームページ：お知らせ
+ * ホームページ：これまでの活動
  *
  * @package Shonan_Kodomoen
  */
+
+$activities_url = shonan_activities_archive_url();
 
 $news_query = new WP_Query(
 	array(
@@ -15,28 +17,40 @@ $news_query = new WP_Query(
 
 $fallback_news = array(
 	array(
-		'date'  => '2026.04.01',
-		'title' => '令和8年度 募集要項を公開しました（仮）',
+		'date'  => '2026.03.20',
+		'title' => '春の遠足で公園あそびを楽しみました',
 	),
 	array(
-		'date'  => '2026.03.15',
-		'title' => '入園説明会・園見学の予約を受け付けています（仮）',
+		'date'  => '2026.02.14',
+		'title' => '節分豆まきと、鬼さんとのふれあい',
 	),
 	array(
-		'date'  => '2026.02.20',
-		'title' => '湘南ジュニア（プレ保育）のご案内（仮）',
+		'date'  => '2026.01.24',
+		'title' => 'むし歯０活動デーのようす',
 	),
 	array(
-		'date'  => '2026.01.10',
-		'title' => 'ホームページをリニューアルしました（仮）',
+		'date'  => '2025.12.18',
+		'title' => 'クリスマス会で歌とダンスを発表しました',
 	),
 );
+
+$aside_image = shonan_placeholder( 'top' );
+$aside_alt   = 'これまでの活動';
+
+if ( $news_query->have_posts() ) {
+	$first = $news_query->posts[0];
+	if ( has_post_thumbnail( $first ) ) {
+		$aside_image = get_the_post_thumbnail_url( $first, 'shonan-card' ) ?: $aside_image;
+		$aside_alt   = get_the_title( $first );
+	}
+}
 ?>
-<section class="section news" id="news">
+<section class="section news" id="activities">
 	<div class="section__inner news__inner">
 		<header class="section-header reveal" data-reveal>
-			<p class="section-eyebrow">おしらせ</p>
-			<h2 class="section-title">きょうのおしらせ</h2>
+			<p class="section-eyebrow">活動記録</p>
+			<h2 class="section-title">これまでの活動</h2>
+			<p class="section-lead">園での行事や日々のようすを、写真とともにお届けします。</p>
 		</header>
 
 		<div class="news__layout">
@@ -59,7 +73,7 @@ $fallback_news = array(
 				<?php else : ?>
 					<?php foreach ( $fallback_news as $item ) : ?>
 						<li class="news-list__item">
-							<a href="<?php echo esc_url( home_url( '/nyuen/' ) ); ?>">
+							<a href="<?php echo esc_url( $activities_url ); ?>">
 								<time><?php echo esc_html( $item['date'] ); ?></time>
 								<span><?php echo esc_html( $item['title'] ); ?></span>
 							</a>
@@ -71,16 +85,15 @@ $fallback_news = array(
 			<aside class="news-aside reveal" data-reveal>
 				<figure class="news-aside__media">
 					<img
-						src="<?php echo esc_url( shonan_placeholder( 'top' ) ); ?>"
-						alt="お知らせビジュアル（仮画像）"
+						src="<?php echo esc_url( $aside_image ); ?>"
+						alt="<?php echo esc_attr( $aside_alt ); ?>"
 						width="640"
 						height="480"
 						loading="lazy"
 					>
 				</figure>
 				<div class="news-aside__actions">
-					<a class="btn btn--outline" href="<?php echo esc_url( home_url( '/nyuen/' ) ); ?>">書類ダウンロード</a>
-					<a class="btn btn--solid" href="<?php echo esc_url( home_url( '/nyuen/' ) ); ?>">入園説明会</a>
+					<a class="btn btn--solid" href="<?php echo esc_url( $activities_url ); ?>">活動一覧を見る</a>
 				</div>
 			</aside>
 		</div>
