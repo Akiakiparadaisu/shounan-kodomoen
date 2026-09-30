@@ -22,4 +22,6 @@ require_once SHONAN_THEME_DIR . '/inc/starter-content.php';
 if ( is_admin() ) {
 	require_once SHONAN_THEME_DIR . '/inc/admission-admin.php';
 	require_once SHONAN_THEME_DIR . '/inc/documents-admin.php';
+	require_once SHONAN_THEME_DIR . '/inc/announcement-admin.php';
 }
+require_once SHONAN_THEME_DIR . '/inc/announcement.php';

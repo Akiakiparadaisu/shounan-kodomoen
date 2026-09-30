@@ -35,7 +35,7 @@ $fallback_news = array(
 );
 
 $aside_image = shonan_placeholder( 'top' );
-$aside_alt   = 'これまでの活動';
+$aside_alt   = 'おしらせ';
 
 if ( $news_query->have_posts() ) {
 	$first = $news_query->posts[0];
@@ -48,9 +48,8 @@ if ( $news_query->have_posts() ) {
 <section class="section news" id="activities">
 	<div class="section__inner news__inner">
 		<header class="section-header reveal" data-reveal>
-			<p class="section-eyebrow">活動記録</p>
-			<h2 class="section-title">これまでの活動</h2>
-			<p class="section-lead">園での行事や日々のようすを、写真とともにお届けします。</p>
+			<h2 class="section-title">おしらせ</h2>
+			<p class="section-lead">園での行事やイベント、園庭開放について告知します。</p>
 		</header>
 
 		<div class="news__layout">
@@ -93,7 +92,7 @@ if ( $news_query->have_posts() ) {
 					>
 				</figure>
 				<div class="news-aside__actions">
-					<a class="btn btn--solid" href="<?php echo esc_url( $activities_url ); ?>">活動一覧を見る</a>
+					<a class="btn btn--solid" href="<?php echo esc_url( $activities_url ); ?>">おしらせ一覧を見る</a>
 				</div>
 			</aside>
 		</div>
