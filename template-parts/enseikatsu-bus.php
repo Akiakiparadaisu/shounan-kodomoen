@@ -7,16 +7,20 @@
 
 $bus_image = shonan_photo( 'enseikatsu/en-bus/en-bus-image.png' );
 $bus_photo = shonan_photo( 'enseikatsu/en-bus/en_bus.jpg' );
-$bus_route = false;
+$bus_route = shonan_document( 'enseikatsu/en-bus/バスルート.pdf' );
 
-$bus_dir = SHONAN_THEME_DIR . '/assets/documents/enseikatsu/en-bus';
-if ( is_dir( $bus_dir ) ) {
-	$matches = glob( $bus_dir . DIRECTORY_SEPARATOR . '*.pdf' );
-	if ( empty( $matches ) ) {
-		$matches = glob( $bus_dir . DIRECTORY_SEPARATOR . '*.PDF' );
-	}
-	if ( ! empty( $matches ) ) {
-		$bus_route = SHONAN_THEME_URI . '/assets/documents/enseikatsu/en-bus/' . rawurlencode( basename( $matches[0] ) );
+if ( ! $bus_route ) {
+	$bus_dir = SHONAN_THEME_DIR . '/assets/documents/enseikatsu/en-bus';
+	$entries = is_dir( $bus_dir ) ? scandir( $bus_dir ) : false;
+	if ( is_array( $entries ) ) {
+		foreach ( $entries as $entry ) {
+			if ( preg_match( '/\.pdf$/i', $entry ) ) {
+				$bus_route = shonan_document( 'enseikatsu/en-bus/' . $entry );
+				if ( $bus_route ) {
+					break;
+				}
+			}
+		}
 	}
 }
 
