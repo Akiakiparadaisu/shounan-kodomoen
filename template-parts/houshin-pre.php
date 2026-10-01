@@ -105,6 +105,41 @@ $moushikomi = shonan_document( 'houshin/pre-hoiku/shonan-junior-moushikomi.pdf' 
 		</div>
 	</div>
 
+	<section class="pre-building" aria-labelledby="pre-building-title">
+		<header class="section-header pre-building__header">
+			<p class="section-eyebrow">専用の建物</p>
+			<h3 class="section-title" id="pre-building-title">湘南ジュニア＆誰でも通園の建物</h3>
+			<p class="section-lead">未就園児が過ごすための、専用の建物です。</p>
+		</header>
+		<div class="pre-building__grid">
+			<figure class="pre-building__card">
+				<img
+					src="<?php echo esc_url( shonan_photo( $base . 'building-outdoor.jpg' ) ); ?>"
+					alt="湘南ジュニアの建物の外観。淡いピンクの外壁と正面の入口"
+					loading="lazy"
+				>
+				<figcaption>
+					<span>外観</span>
+					建物の正面です。淡いピンクの外壁に「湘南ジュニア」の文字があり、すりガラスの入口から入ります。
+				</figcaption>
+			</figure>
+			<figure class="pre-building__card">
+				<img
+					src="<?php echo esc_url( shonan_photo( $base . 'building_indoor.jpg' ) ); ?>"
+					alt="湘南ジュニアの室内。木の床と棚、机と椅子"
+					loading="lazy"
+				>
+				<figcaption>
+					<span>室内</span>
+					木の床の部屋に、絵本やおもちゃの棚、幼児用の机と椅子があります。
+				</figcaption>
+			</figure>
+		</div>
+		<p class="pre-building__cta">
+			<button type="button" class="btn btn--solid" data-junior-3d-open>湘南ジュニアの建物を見る</button>
+		</p>
+	</section>
+
 	<section class="pre-overview" aria-labelledby="pre-overview-title">
 		<header class="pre-overview__head">
 			<p class="section-eyebrow">ご案内</p>
@@ -170,3 +205,4 @@ $moushikomi = shonan_document( 'houshin/pre-hoiku/shonan-junior-moushikomi.pdf' 
 		</div>
 	</section>
 </section>
+<?php get_template_part( 'template-parts/junior-3d' ); ?>

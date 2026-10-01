@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>湘南ジュニア | 3D建物</title>
+<style>
+:root{color:#2c3a40;background:#ebe4dc;font-family:"Yu Gothic","Hiragino Sans",Meiryo,sans-serif}
+*{box-sizing:border-box}
+body{margin:0}
+button{font:inherit;cursor:pointer}
+#viewer{position:fixed;top:0;right:0;bottom:0;left:200px}
+canvas{display:block;width:100%;height:100%}
+.rail{
+  position:absolute;z-index:3;left:0;top:0;bottom:0;width:200px;
+  display:flex;flex-direction:column;
+  padding:4.4rem 14px 18px;
+  background:rgba(255,251,247,.94);
+  border-right:1px solid rgba(80,50,40,.08);
+  backdrop-filter:blur(18px);
+}
+.rail__kicker{
+  margin:18px 8px 8px;
+  font-size:11px;font-weight:700;letter-spacing:.18em;color:#c45b73;
+}
+.rail__kicker:first-child{margin-top:0}
+.rail__group{display:flex;flex-direction:column;gap:4px}
+.rail button{
+  width:100%;text-align:left;
+  border:0;border-radius:999px;
+  padding:10px 14px;
+  background:transparent;color:#314047;
+  font-size:15px;font-weight:700;letter-spacing:.04em;
+  transition:background .25s ease,color .25s ease,transform .25s ease;
+}
+.rail button:hover{background:rgba(255,180,162,.35)}
+.rail button.active{background:#315e55;color:#fff}
+.rail button:focus-visible{outline:3px solid #e2b15a;outline-offset:2px}
+.loading{
+  position:absolute;inset:0;z-index:5;
+  display:grid;place-content:center;gap:6px;
+  background:#ebe4dc;color:#315e55;text-align:center;
+  font-size:14px;letter-spacing:.08em;
+}
+.loading span{font-size:11px;letter-spacing:.22em;color:#8d746c}
+.loading.hidden{display:none}
+@media(max-width:680px){
+  #viewer{left:0;bottom:132px}
+  .rail{top:auto;width:100%;height:auto;flex-direction:row;flex-wrap:wrap;gap:6px;padding:10px}
+  .rail__kicker{display:none}
+  .rail__group{flex-direction:row;flex-wrap:wrap}
+  .rail button{width:auto;padding:7px 12px;font-size:13px}
+}
+</style>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/"}}</script>
+</head>
+<body>
+<aside class="rail" aria-label="建物の場所">
+  <p class="rail__kicker">視点</p>
+  <div class="rail__group" id="view-menu"></div>
+  <p class="rail__kicker">場所</p>
+  <div class="rail__group" id="place-menu"></div>
+</aside>
+<main id="viewer" aria-label="湘南ジュニアの3Dモデル"></main>
+<div class="loading" id="loading">建物を読み込んでいます<span>SHONAN JUNIOR</span></div>
+<script type="module" src="./viewer.js?v=25"></script>
+</body>
+</html>

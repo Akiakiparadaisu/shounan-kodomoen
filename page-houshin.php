@@ -137,6 +137,9 @@ get_header();
 				<li>おむつは各家庭にて持参してください。</li>
 				<li>当園が臨時休園になった場合は、当事業も中止する。</li>
 			</ul>
+			<p class="dare-tsuen__cta">
+				<button type="button" class="btn btn--solid" data-junior-3d-open>建物を見る</button>
+			</p>
 		</section>
 	</article>
 </div>

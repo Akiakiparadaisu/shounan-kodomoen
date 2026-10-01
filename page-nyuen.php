@@ -285,6 +285,7 @@ $pre_url  = get_page_by_path( 'pre-hoiku' )
 				<p>未就園児に対して保育・教育的な環境を提供し、集団生活を通じて成長と社会性を促すプログラムです。詳しくは園の方針ページでもご紹介しています。</p>
 				<p class="nyuen-junior__actions">
 					<a class="btn btn--solid" href="<?php echo esc_url( $pre_url ); ?>">湘南ジュニアについて見る</a>
+					<button type="button" class="btn btn--outline" data-junior-3d-open>湘南ジュニアの建物を見る</button>
 					<?php $junior_poster = shonan_managed_document_url( 'junior' ); ?>
 					<?php if ( $junior_poster ) : ?>
 						<a class="btn btn--outline" href="<?php echo esc_url( $junior_poster ); ?>" target="_blank" rel="noopener noreferrer">湘南ジュニアのご案内（PDF）</a>
@@ -306,6 +307,7 @@ $pre_url  = get_page_by_path( 'pre-hoiku' )
 		</section>
 	</article>
 </div>
+<?php get_template_part( 'template-parts/junior-3d' ); ?>
 
 <?php
 get_footer();
