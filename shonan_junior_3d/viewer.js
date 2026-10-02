@@ -76,7 +76,8 @@ const doorLeaves = [];
 
 function registerDoors(model) {
   const groups = [
-    { id: 'front', test: (name) => /^Right (door glazing|operable leaf|leaf upper|edge stainless pull)/.test(name), hinge: [ -0.27, 0, -19.65 ], swing: Math.PI * 0.72 },
+    { id: 'front', test: (name) => /^Right (door glazing|operable leaf|leaf upper|edge stainless pull)/.test(name) || name === 'Door key escutcheon' || name === 'Door key slot', hinge: [ -0.27, 0, -19.65 ], swing: Math.PI * 0.72 },
+    { id: 'front-wide', test: (name) => name === 'Fixed left pane', hinge: [ 0.64, 0, -19.61 ], swing: -Math.PI * 0.72 },
     { id: 'round-near', test: (name) => name === 'Round window timber door' || name === 'Door pull' || name === 'Door pull.001', hinge: [ 0.51, 0, -7.64 ], swing: Math.PI * 0.7 },
     { id: 'round-far', test: (name) => name === 'Round window timber door.001' || name === 'Door pull.002' || name === 'Door pull.003', hinge: [ 0.51, 0, -12.06 ], swing: Math.PI * 0.7 },
     { id: 'wc', test: (name) => name === 'Adult WC cubicle door', hinge: [ -0.55, 0, -10.77 ], swing: Math.PI * 0.7 },
@@ -223,7 +224,15 @@ new GLTFLoader().load('./shonan_junior.glb?v=4c', (gltf) => {
   document.querySelector('#loading').textContent = '建物を表示できませんでした';
 });
 
-controls.addEventListener('start', () => { transition = null; });
+renderer.domElement.addEventListener('pointermove', (event) => {
+  if (!modelRoot) return;
+  const rect = renderer.domElement.getBoundingClientRect();
+  pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+  raycaster.setFromCamera(pointer, camera);
+  const hit = raycaster.intersectObject(modelRoot, true).find((item) => doorFromObject(item.object));
+  renderer.domElement.style.cursor = hit ? 'pointer' : '';
+});
 
 let pointerStart = null;
 renderer.domElement.addEventListener('pointerdown', (event) => {
@@ -234,7 +243,7 @@ renderer.domElement.addEventListener('pointerup', (event) => {
   const dx = event.clientX - pointerStart.x;
   const dy = event.clientY - pointerStart.y;
   pointerStart = null;
-  if (dx * dx + dy * dy > 36 || !modelRoot) return;
+  if (dx * dx + dy * dy > 100 || !modelRoot) return;
   const rect = renderer.domElement.getBoundingClientRect();
   pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
   pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;

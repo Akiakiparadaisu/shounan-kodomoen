@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$viewer = SHONAN_THEME_URI . '/shonan_junior_3d/index.html?embed=1&v=25';
+$viewer = SHONAN_THEME_URI . '/shonan_junior_3d/index.html?embed=1&v=26';
 ?>
 <dialog class="junior-3d" id="junior-3d">
 	<div class="junior-3d__panel">
