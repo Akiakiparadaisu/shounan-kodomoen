@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$viewer = SHONAN_THEME_URI . '/shonan_junior_3d/index.html?embed=1&v=27';
+$viewer = SHONAN_THEME_URI . '/shonan_junior_3d/view.php?embed=1';
 ?>
 <dialog class="junior-3d" id="junior-3d">
 	<div class="junior-3d__panel">
@@ -24,7 +24,10 @@ $viewer = SHONAN_THEME_URI . '/shonan_junior_3d/index.html?embed=1&v=27';
 	dialog.dataset.ready = '1';
 	var frame = dialog.querySelector('iframe');
 	function openViewer() {
-		if (frame && !frame.getAttribute('src')) frame.setAttribute('src', frame.getAttribute('data-src'));
+		if (frame) {
+			var base = frame.getAttribute('data-src');
+			frame.setAttribute('src', base + (base.indexOf('?') >= 0 ? '&' : '?') + 'open=' + Date.now());
+		}
 		if (dialog.showModal) dialog.showModal();
 	}
 	document.addEventListener('click', function (event) {

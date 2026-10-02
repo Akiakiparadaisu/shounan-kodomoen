@@ -213,7 +213,7 @@ try {
 }
 addEventListener('resize', resize);
 
-new GLTFLoader().load('./shonan_junior.glb?v=4c', (gltf) => {
+function showModel(gltf) {
   const model = gltf.scene;
   modelRoot = model;
   scene.add(model);
@@ -225,9 +225,20 @@ new GLTFLoader().load('./shonan_junior.glb?v=4c', (gltf) => {
   });
   registerDoors(model);
   document.querySelector('#loading').classList.add('hidden');
-}, undefined, () => {
+}
+
+function failModel() {
   document.querySelector('#loading').textContent = '建物を表示できませんでした';
-});
+}
+
+THREE.Cache.enabled = false;
+fetch('./model.php', { cache: 'no-store' })
+  .then((response) => {
+    if (!response.ok) throw new Error(String(response.status));
+    return response.arrayBuffer();
+  })
+  .then((buffer) => new GLTFLoader().parse(buffer, './', showModel, failModel))
+  .catch(failModel);
 
 renderer.domElement.addEventListener('pointermove', (event) => {
   if (!modelRoot) return;
