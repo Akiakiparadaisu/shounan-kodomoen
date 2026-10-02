@@ -5945,10 +5945,14 @@ body.page-history .breadcrumb a {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+dialog.junior-3d {
+  position: fixed;
+  inset: 0;
   width: 100vw;
-  max-width: 100vw;
   height: 100vh;
-  max-height: 100vh;
+  max-width: none;
+  max-height: none;
   margin: 0;
   padding: 0;
   border: 0;

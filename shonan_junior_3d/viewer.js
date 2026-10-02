@@ -123,10 +123,15 @@ const pointer = new THREE.Vector2();
 
 function resize() {
   const width = host.clientWidth;
-  const height = Math.max(host.clientHeight, 1);
+  const height = host.clientHeight;
+  if (width < 2 || height < 2) return;
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
-  renderer.setSize(width, height);
+  renderer.setSize(width, height, false);
+}
+
+if (typeof ResizeObserver !== 'undefined') {
+  new ResizeObserver(resize).observe(host);
 }
 
 function markActive() {
