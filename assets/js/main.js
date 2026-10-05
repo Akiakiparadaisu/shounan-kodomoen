@@ -166,19 +166,25 @@
   // ヒーローは即表示
   document.querySelectorAll('.hero .reveal, .hero [data-reveal]').forEach(showEl);
 
+  var scrollQueued = false;
+  function onScrollFrame() {
+    scrollQueued = false;
+    onScroll();
+    revealInView();
+    revealFlowSteps();
+  }
+  function queueScrollWork() {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    window.requestAnimationFrame(onScrollFrame);
+  }
+
   window.requestAnimationFrame(function () {
     window.setTimeout(revealInView, 60);
   });
 
-  window.addEventListener(
-    'scroll',
-    function () {
-      onScroll();
-      revealInView();
-    },
-    { passive: true }
-  );
-  window.addEventListener('resize', revealInView, { passive: true });
+  window.addEventListener('scroll', queueScrollWork, { passive: true });
+  window.addEventListener('resize', queueScrollWork, { passive: true });
   onScroll();
   revealInView();
 
@@ -196,8 +202,6 @@
     });
   }
 
-  window.addEventListener('scroll', revealFlowSteps, { passive: true });
-  window.addEventListener('resize', revealFlowSteps, { passive: true });
   window.setTimeout(revealFlowSteps, 200);
 
   // 一日の流れタブ
@@ -339,33 +343,71 @@
     window.setTimeout(dealWhenSeen, 240);
   }
 
-  var busRoads = document.querySelectorAll('[data-bus-road]');
+  var busRoads = Array.prototype.slice.call(document.querySelectorAll('[data-bus-road]'));
   if (busRoads.length) {
-    function startBus(road) {
-      if (road.classList.contains('is-driving')) {
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var busDriveMs = reduceMotion ? 3200 : 14000;
+
+    function finishBus(road) {
+      if (road.classList.contains('is-passed')) return;
+      road.classList.remove('is-driving');
+      road.classList.add('is-passed');
+    }
+
+    function runBus(road) {
+      if (road.dataset.busStarted === '1') return;
+      road.dataset.busStarted = '1';
+
+      var track = road.querySelector('.bus-road__track');
+      var runner = road.querySelector('.bus-road__runner');
+      if (!track || !runner) {
+        finishBus(road);
         return;
       }
-      var rect = road.getBoundingClientRect();
-      var vh = window.innerHeight || document.documentElement.clientHeight;
-      if (rect.top < vh * 0.72 && rect.bottom > 80) {
-        road.classList.add('is-driving');
-        var stops = road.querySelectorAll('.bus-stop');
-        var marks = [0.35, 0.68];
-        stops.forEach(function (stop, i) {
-          window.setTimeout(function () {
-            stop.classList.add('is-in');
-          }, 7000 * marks[i]);
-        });
+
+      /* 初期は必ず車線を出し、最終状態クラスを付けない */
+      road.classList.remove('is-passed');
+      road.classList.add('is-driving');
+      runner.style.transform = 'translate3d(-120%, 0, 0)';
+
+      var distance = track.clientWidth + runner.offsetWidth * 1.2;
+      var start = null;
+
+      function frame(now) {
+        if (start === null) start = now;
+        var t = Math.min(1, (now - start) / busDriveMs);
+        var x = -runner.offsetWidth * 1.05 + distance * t;
+        runner.style.transform = 'translate3d(' + x + 'px, 0, 0)';
+        if (t < 1) {
+          window.requestAnimationFrame(frame);
+          return;
+        }
+        finishBus(road);
       }
+
+      window.requestAnimationFrame(frame);
     }
 
-    function checkBuses() {
-      busRoads.forEach(startBus);
+    if ('IntersectionObserver' in window) {
+      var busObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting || entry.intersectionRatio > 0) {
+              runBus(entry.target);
+              busObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
+      );
+      busRoads.forEach(function (road) {
+        busObserver.observe(road);
+      });
+    } else {
+      window.setTimeout(function () {
+        busRoads.forEach(runBus);
+      }, 400);
     }
-
-    window.addEventListener('scroll', checkBuses, { passive: true });
-    window.addEventListener('resize', checkBuses, { passive: true });
-    window.setTimeout(checkBuses, 240);
   }
 
   window.shonanUnrollHistoryScroll = window.shonanUnrollHistoryScroll || function () {

@@ -2,23 +2,31 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
 document.documentElement.dataset.step = 'start';
 
 const host = document.querySelector('#viewer');
+const isCoarse = matchMedia('(pointer: coarse)').matches;
+const maxPixelRatio = isCoarse ? 1.1 : 1.35;
+
 const scene = new THREE.Scene();
 scene.background = new THREE.Color('#e4ddd4');
 const camera = new THREE.PerspectiveCamera(43, 1, 0.03, 160);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
+const renderer = new THREE.WebGLRenderer({
+  antialias: !isCoarse,
+  powerPreference: 'high-performance',
+  alpha: false,
+});
+renderer.setPixelRatio(Math.min(devicePixelRatio, maxPixelRatio));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 0.96;
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.BasicShadowMap;
 host.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
-controls.dampingFactor = 0.08;
+controls.dampingFactor = 0.1;
 controls.maxPolarAngle = Math.PI * 0.49;
 controls.minDistance = 0.4;
 controls.maxDistance = 42;
@@ -34,26 +42,21 @@ try {
   document.querySelector('#loading').textContent = String(error);
 }
 scene.environment = envTexture;
-scene.environmentIntensity = 0.48;
+scene.environmentIntensity = 0.55;
 
-scene.add(new THREE.HemisphereLight(0xf4f6ff, 0x8e8070, 1.15));
-const sun = new THREE.DirectionalLight(0xfff1da, 2.15);
+scene.add(new THREE.HemisphereLight(0xf4f6ff, 0x8e8070, 1.25));
+const sun = new THREE.DirectionalLight(0xfff1da, 2.35);
 sun.position.set(-4, 12, 8);
 sun.target.position.set(2, 0, -10);
 sun.castShadow = true;
-sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.mapSize.set(1024, 1024);
 Object.assign(sun.shadow.camera, { left: -18, right: 18, top: 18, bottom: -18, near: 0.5, far: 55 });
-sun.shadow.bias = -0.0004;
+sun.shadow.bias = -0.0005;
 scene.add(sun, sun.target);
 document.documentElement.dataset.step = 'lights';
-const fill = new THREE.DirectionalLight(0xd7e9ff, 1.05);
+const fill = new THREE.DirectionalLight(0xd7e9ff, 1.2);
 fill.position.set(8, 7, -14);
 scene.add(fill);
-for (const z of [-2, -6, -10, -14, -18]) {
-  const light = new THREE.PointLight(0xfff0db, 12, 7, 2);
-  light.position.set(2.2, 2.3, z);
-  scene.add(light);
-}
 
 const views = {
   exterior: { position: [-7, 7, -29], target: [1.75, 1.7, -17], fov: 42, mode: 'exterior' },
@@ -73,6 +76,15 @@ const spots = [
 let active = 'exterior';
 let transition = null;
 const doorLeaves = [];
+let needsRender = true;
+let interacting = false;
+let lastDoorMove = 0;
+let raycastTimer = 0;
+
+function requestDraw(ms = 0) {
+  needsRender = true;
+  if (ms > 0) lastDoorMove = Math.max(lastDoorMove, performance.now() + ms);
+}
 
 function registerDoors(model) {
   const groups = [
@@ -117,7 +129,9 @@ function doorFromObject(object) {
 function toggleDoor(door) {
   if (!door) return;
   door.open = !door.open;
+  requestDraw(900);
 }
+
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 
@@ -128,6 +142,7 @@ function resize() {
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
   renderer.setSize(width, height, false);
+  requestDraw();
 }
 
 if (typeof ResizeObserver !== 'undefined') {
@@ -151,11 +166,12 @@ function flyTo(shot, animate) {
     camera.updateProjectionMatrix();
     controls.update();
     markActive();
+    requestDraw();
     return;
   }
   transition = {
     start: performance.now(),
-    duration: 1400,
+    duration: 1100,
     from: camera.position.clone(),
     targetFrom: controls.target.clone(),
     to: new THREE.Vector3(...shot.position),
@@ -164,6 +180,7 @@ function flyTo(shot, animate) {
     fovTo: shot.fov,
   };
   markActive();
+  requestDraw(1200);
 }
 
 let modelRoot = null;
@@ -175,7 +192,9 @@ function setToiletWalls(hide) {
     const part = modelRoot.getObjectByName(name);
     if (part) part.visible = !hide;
   });
+  requestDraw();
 }
+
 function choose(id) {
   active = id;
   setToiletWalls(id === 'toilet');
@@ -213,18 +232,38 @@ try {
 }
 addEventListener('resize', resize);
 
+function tuneMesh(object) {
+  if (!object.isMesh) return;
+  const name = object.name || '';
+  const big = /wall|floor|roof|ceiling|ground|slab|deck|terrace|concrete|foundation/i.test(name)
+    || (object.geometry && object.geometry.boundingSphere && object.geometry.boundingSphere.radius > 1.2);
+  object.castShadow = !!big;
+  object.receiveShadow = /floor|ground|slab|deck|terrace|wall/i.test(name) || !!big;
+  object.frustumCulled = true;
+  if (object.material) {
+    const materials = Array.isArray(object.material) ? object.material : [object.material];
+    materials.forEach((material) => {
+      if (!material) return;
+      material.precision = 'mediump';
+      if ('envMapIntensity' in material) material.envMapIntensity = Math.min(material.envMapIntensity || 1, 0.85);
+    });
+  }
+}
+
 function showModel(gltf) {
   const model = gltf.scene;
   modelRoot = model;
   scene.add(model);
+  model.updateMatrixWorld(true);
   model.traverse((object) => {
-    if (object.isMesh) {
-      object.castShadow = true;
-      object.receiveShadow = true;
+    if (object.isMesh && object.geometry && !object.geometry.boundingSphere) {
+      object.geometry.computeBoundingSphere();
     }
+    tuneMesh(object);
   });
   registerDoors(model);
   document.querySelector('#loading').classList.add('hidden');
+  requestDraw(400);
 }
 
 function failModel() {
@@ -232,16 +271,23 @@ function failModel() {
 }
 
 THREE.Cache.enabled = false;
-fetch('./model.php', { cache: 'no-store' })
+fetch('./model.php', { cache: 'default' })
   .then((response) => {
     if (!response.ok) throw new Error(String(response.status));
     return response.arrayBuffer();
   })
-  .then((buffer) => new GLTFLoader().parse(buffer, './', showModel, failModel))
+  .then((buffer) => new Promise((resolve, reject) => {
+    new GLTFLoader().parse(buffer, './', resolve, reject);
+  }))
+  .then(showModel)
   .catch(failModel);
 
 renderer.domElement.addEventListener('pointermove', (event) => {
   if (!modelRoot) return;
+  requestDraw();
+  const now = performance.now();
+  if (now - raycastTimer < 80) return;
+  raycastTimer = now;
   const rect = renderer.domElement.getBoundingClientRect();
   pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
   pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -253,8 +299,12 @@ renderer.domElement.addEventListener('pointermove', (event) => {
 let pointerStart = null;
 renderer.domElement.addEventListener('pointerdown', (event) => {
   pointerStart = { x: event.clientX, y: event.clientY };
+  interacting = true;
+  requestDraw();
 });
 renderer.domElement.addEventListener('pointerup', (event) => {
+  interacting = false;
+  requestDraw(200);
   if (!pointerStart) return;
   const dx = event.clientX - pointerStart.x;
   const dy = event.clientY - pointerStart.y;
@@ -269,22 +319,86 @@ renderer.domElement.addEventListener('pointerup', (event) => {
   if (!door) return;
   toggleDoor(door);
 });
+controls.addEventListener('start', () => {
+  interacting = true;
+  requestDraw();
+});
+controls.addEventListener('end', () => {
+  interacting = false;
+  requestDraw(250);
+});
+controls.addEventListener('change', () => requestDraw());
 
-renderer.setAnimationLoop(() => {
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    startLoop();
+    requestDraw();
+  } else {
+    stopLoop();
+  }
+});
+
+addEventListener('message', (event) => {
+  if (!event.data || event.data.type !== 'junior-3d') return;
+  if (event.data.action === 'pause') {
+    needsRender = false;
+    interacting = false;
+    transition = null;
+    stopLoop();
+    return;
+  }
+  if (event.data.action === 'resume') {
+    startLoop();
+    requestDraw(300);
+  }
+});
+
+function tick() {
+  if (document.visibilityState === 'hidden') return;
+
+  const now = performance.now();
+  let busy = interacting || !!transition || now < lastDoorMove;
+
   if (transition) {
-    const t = Math.min(1, (performance.now() - transition.start) / transition.duration);
+    const t = Math.min(1, (now - transition.start) / transition.duration);
     const s = t * t * (3 - 2 * t);
     camera.position.lerpVectors(transition.from, transition.to, s);
     controls.target.lerpVectors(transition.targetFrom, transition.targetTo, s);
     camera.fov = THREE.MathUtils.lerp(transition.fovFrom, transition.fovTo, s);
     camera.updateProjectionMatrix();
     if (t === 1) transition = null;
+    busy = true;
   }
+
+  let doorBusy = false;
   doorLeaves.forEach((door) => {
     const goal = door.open ? door.swing : 0;
-    door.angle = THREE.MathUtils.damp(door.angle, goal, 7, 1 / 60);
+    const next = THREE.MathUtils.damp(door.angle, goal, 7, 1 / 60);
+    if (Math.abs(next - door.angle) > 0.0002) doorBusy = true;
+    door.angle = next;
     door.pivot.rotation.y = door.angle;
   });
-  controls.update();
+  if (doorBusy) {
+    busy = true;
+    lastDoorMove = now + 120;
+  }
+
+  if (controls.update()) busy = true;
+  if (!needsRender && !busy) return;
+
   renderer.render(scene, camera);
-});
+  needsRender = false;
+}
+
+let looping = false;
+function startLoop() {
+  if (looping) return;
+  looping = true;
+  renderer.setAnimationLoop(tick);
+}
+function stopLoop() {
+  looping = false;
+  renderer.setAnimationLoop(null);
+}
+
+startLoop();

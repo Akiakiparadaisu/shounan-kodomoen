@@ -13,6 +13,7 @@
 			width="1920"
 			height="1080"
 			fetchpriority="high"
+			decoding="async"
 		>
 	</div>
 	<div class="hero__veil" aria-hidden="true"></div>

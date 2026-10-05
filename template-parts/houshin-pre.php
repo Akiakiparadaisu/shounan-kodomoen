@@ -131,7 +131,7 @@ $moushikomi = shonan_document( 'houshin/pre-hoiku/shonan-junior-moushikomi.pdf' 
 				>
 				<figcaption>
 					<span>室内</span>
-					木の床の部屋に、絵本やおもちゃの棚、幼児用の机と椅子があります。
+					木の床の部屋に、絵本やおもちゃの棚、園児用の机と椅子があります。
 				</figcaption>
 			</figure>
 		</div>

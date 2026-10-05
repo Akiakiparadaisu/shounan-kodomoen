@@ -379,7 +379,7 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 
 			<?php if ( $katsudo_pdf ) : ?>
 				<p class="history-download">
-					<a class="btn btn--solid" href="<?php echo esc_url( $katsudo_pdf ); ?>" target="_blank" rel="noopener">園の実績資料（PDF）を見る</a>
+					<a class="btn btn--solid" href="<?php echo esc_url( $katsudo_pdf ); ?>" target="_blank" rel="noopener">重点保育項目を見る</a>
 				</p>
 			<?php endif; ?>
 		</section>

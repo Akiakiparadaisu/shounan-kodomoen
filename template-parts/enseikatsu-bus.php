@@ -43,47 +43,50 @@ $bus_stops = array(
 	</header>
 
 	<div class="bus-road" data-bus-road>
-		<div class="bus-road__track">
-			<span class="bus-road__lane" aria-hidden="true"></span>
-			<span class="bus-road__runner" aria-hidden="true">
+		<div class="bus-road__track" aria-hidden="true">
+			<span class="bus-road__lane"></span>
+			<span class="bus-road__runner">
 				<img
 					class="bus-road__bus"
 					src="<?php echo esc_url( $bus_image ); ?>"
 					alt=""
 					width="640"
 					height="280"
+					decoding="async"
 				>
 			</span>
 		</div>
 		<ol class="bus-road__stops">
-				<li class="bus-stop bus-stop--photo">
-					<figure class="bus-stop__photo">
-						<img
-							src="<?php echo esc_url( $bus_photo ); ?>"
-							alt="園バスに乗り込む子どもたち"
-							width="900"
-							height="700"
-						>
-					</figure>
-				</li>
-				<li class="bus-stop">
-					<p class="bus-stop__focus">バスの中も保育</p>
-					<?php foreach ( $bus_stops as $stop ) : ?>
-						<div class="bus-stop__block">
-							<h3 class="bus-stop__title"><?php echo esc_html( $stop['title'] ); ?></h3>
-							<p class="bus-stop__text"><?php echo esc_html( $stop['text'] ); ?></p>
-						</div>
-					<?php endforeach; ?>
+			<li class="bus-stop bus-stop--photo">
+				<figure class="bus-stop__photo">
+					<img
+						src="<?php echo esc_url( $bus_photo ); ?>"
+						alt="園バスに乗り込む子どもたち"
+						width="900"
+						height="700"
+						loading="lazy"
+						decoding="async"
+					>
+				</figure>
+			</li>
+			<li class="bus-stop">
+				<p class="bus-stop__focus">バスの中も保育</p>
+				<?php foreach ( $bus_stops as $stop ) : ?>
 					<div class="bus-stop__block">
-						<h3 class="bus-stop__title">ルートのご案内</h3>
-						<?php if ( $bus_route ) : ?>
-							<p class="bus-stop__text">園バスの通り道は、ルート表でご確認ください。</p>
-							<a class="btn btn--solid" href="<?php echo esc_url( $bus_route ); ?>" target="_blank" rel="noopener noreferrer">バスルートを見る（PDF）</a>
-						<?php else : ?>
-							<p class="bus-stop__text">ルート表は準備中です。</p>
-						<?php endif; ?>
+						<h3 class="bus-stop__title"><?php echo esc_html( $stop['title'] ); ?></h3>
+						<p class="bus-stop__text"><?php echo esc_html( $stop['text'] ); ?></p>
 					</div>
-				</li>
+				<?php endforeach; ?>
+				<div class="bus-stop__block">
+					<h3 class="bus-stop__title">ルートのご案内</h3>
+					<?php if ( $bus_route ) : ?>
+						<p class="bus-stop__text">園バスの通り道は、ルート表でご確認ください。</p>
+						<a class="btn btn--solid" href="<?php echo esc_url( $bus_route ); ?>" target="_blank" rel="noopener noreferrer">バスルートを見る（PDF）</a>
+					<?php else : ?>
+						<p class="bus-stop__text">ルート表は準備中です。</p>
+					<?php endif; ?>
+				</div>
+			</li>
 		</ol>
 	</div>
 </section>
