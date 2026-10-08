@@ -13,7 +13,7 @@ $settings = shonan_get_announcement();
 $image    = $settings['image_id'] ? wp_get_attachment_image_url( $settings['image_id'], 'large' ) : '';
 $alt      = $settings['image_id'] ? (string) get_post_meta( $settings['image_id'], '_wp_attachment_image_alt', true ) : '';
 ?>
-<div class="site-notice" id="shonan-notice" data-rev="<?php echo esc_attr( shonan_announcement_revision() ); ?>" hidden>
+<div class="site-notice" id="shonan-notice" data-rev="<?php echo esc_attr( shonan_announcement_revision() ); ?>" data-title="<?php echo esc_attr( '' !== $settings['title'] ? $settings['title'] : 'お知らせ' ); ?>" hidden>
 	<div class="site-notice__backdrop" data-notice-close></div>
 	<div class="site-notice__dialog" role="dialog" aria-modal="true" aria-labelledby="shonan-notice-title">
 		<button class="site-notice__close" type="button" data-notice-close aria-label="閉じる">×</button>

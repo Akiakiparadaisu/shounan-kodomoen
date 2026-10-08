@@ -57,6 +57,25 @@ function shonan_theme_setup() {
 add_action( 'after_setup_theme', 'shonan_theme_setup' );
 
 /**
+ * 寒川町の園なので、初期値の UTC は日本時間に直す。
+ * 管理画面で別のタイムゾーンを選んでいる場合はそのままにする。
+ */
+function shonan_ensure_tokyo_timezone() {
+	if ( 'Asia/Tokyo' === get_option( 'timezone_string' ) ) {
+		return;
+	}
+	if ( '' !== (string) get_option( 'timezone_string' ) ) {
+		return;
+	}
+	if ( 0.0 !== (float) get_option( 'gmt_offset' ) ) {
+		return;
+	}
+	update_option( 'timezone_string', 'Asia/Tokyo' );
+	update_option( 'gmt_offset', '9' );
+}
+add_action( 'init', 'shonan_ensure_tokyo_timezone' );
+
+/**
  * ウィジェットエリア
  */
 function shonan_widgets_init() {
@@ -99,3 +118,79 @@ function shonan_body_classes( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'shonan_body_classes' );
+
+/**
+ * 検索結果に出るタイトル。画面上の見出しとは別に、園名と地域の言葉を入れる。
+ *
+ * @param string $title 既存タイトル.
+ * @return string
+ */
+function shonan_document_title( $title ) {
+	$brand = '湘南こども園';
+	$pages = array(
+		'houshin'             => '園の方針｜寒川町の認定こども園 ' . $brand,
+		'enseikatsu'          => '園生活・園バス・給食｜寒川町 ' . $brand,
+		'shisetsu'            => '園の施設｜寒川町の認定こども園 ' . $brand,
+		'nyuen'               => '入園案内・説明会｜寒川町の認定こども園 ' . $brand,
+		'kyujin'              => '保育士求人｜寒川町 ' . $brand,
+		'history'             => '50年の幼児教育実績｜寒川町 ' . $brand,
+		'mirai'               => 'これからの幼児教育｜寒川町 ' . $brand,
+		'shorui'              => '在園の保護者へ｜' . $brand,
+		'pre-hoiku'           => '湘南ジュニア｜寒川町の未就園児・誰でも通園',
+		'tokubetsu-hoiku'     => '特別保育｜寒川町の認定こども園 ' . $brand,
+		'ichinichi-no-nagare' => '一日の流れ｜寒川町 ' . $brand,
+		'nenkan-gyoji'        => '年間行事｜寒川町 ' . $brand,
+	);
+
+	if ( is_front_page() ) {
+		return $brand . '｜寒川町の認定こども園、誰でも通園実施中';
+	}
+
+	if ( is_home() ) {
+		return 'おしらせ｜寒川町 ' . $brand;
+	}
+
+	if ( is_404() ) {
+		return 'ページが見つかりません｜' . $brand;
+	}
+
+	if ( is_search() ) {
+		return '検索結果｜' . $brand;
+	}
+
+	if ( is_singular( 'post' ) ) {
+		return get_the_title() . '｜' . $brand;
+	}
+
+	if ( is_page() ) {
+		$slug = get_post_field( 'post_name', get_queried_object_id() );
+		if ( isset( $pages[ $slug ] ) ) {
+			return $pages[ $slug ];
+		}
+		return get_the_title() . '｜' . $brand;
+	}
+
+	return $title;
+}
+add_filter( 'pre_get_document_title', 'shonan_document_title' );
+
+/**
+ * 検索結果とブラウザタブ用のサイトアイコン
+ */
+function shonan_site_icon() {
+	$file = SHONAN_THEME_DIR . '/assets/images/site-icon.png';
+	if ( ! is_file( $file ) ) {
+		return;
+	}
+
+	$url = SHONAN_THEME_URI . '/assets/images/site-icon.png?v=' . rawurlencode( (string) filemtime( $file ) );
+	printf(
+		'<link rel="icon" href="%1$s" type="image/png" sizes="192x192">' . "\n",
+		esc_url( $url )
+	);
+	printf(
+		'<link rel="apple-touch-icon" href="%1$s">' . "\n",
+		esc_url( $url )
+	);
+}
+add_action( 'wp_head', 'shonan_site_icon', 2 );

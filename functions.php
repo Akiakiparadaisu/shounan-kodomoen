@@ -25,3 +25,8 @@ if ( is_admin() ) {
 	require_once SHONAN_THEME_DIR . '/inc/announcement-admin.php';
 }
 require_once SHONAN_THEME_DIR . '/inc/announcement.php';
+require_once SHONAN_THEME_DIR . '/inc/stats.php';
+
+if ( is_admin() ) {
+	require_once SHONAN_THEME_DIR . '/inc/stats-admin.php';
+}
