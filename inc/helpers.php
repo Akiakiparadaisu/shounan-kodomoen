@@ -36,7 +36,14 @@ function shonan_placeholder( $name = 'top' ) {
 	foreach ( $extensions as $ext ) {
 		$file = $base . '/' . $leaf . '.' . $ext;
 		if ( file_exists( $file ) ) {
-			return SHONAN_THEME_URI . '/assets/images/' . $rel_dir . '/' . $leaf . '.' . $ext;
+			$relative = implode( '/', $parts ) . '/' . $leaf . '.' . $ext;
+			if ( function_exists( 'shonan_content_photo_url' ) ) {
+				$override = shonan_content_photo_url( $relative );
+				if ( $override ) {
+					return $override;
+				}
+			}
+			return shonan_photo_file_url( $relative );
 		}
 	}
 
@@ -55,13 +62,43 @@ function shonan_placeholder( $name = 'top' ) {
  * @param string $relative photos/ からの相対パス（例: houshin/tokubetsu-hoiku/kokusai.jpg）.
  * @return string
  */
-function shonan_photo( $relative ) {
-	$relative = ltrim( str_replace( '\\', '/', $relative ), '/' );
+function shonan_photo_key( $relative ) {
+	$relative = ltrim( str_replace( '\\', '/', (string) $relative ), '/' );
 	$relative = preg_replace( '#^photos/#', '', $relative );
+	return $relative;
+}
+
+/**
+ * テーマに同梱している写真のURL
+ *
+ * @param string $relative photos/ からの相対パス.
+ * @return string
+ */
+function shonan_photo_file_url( $relative ) {
+	$relative = shonan_photo_key( $relative );
+	$parts    = array_map( 'rawurlencode', explode( '/', $relative ) );
+	return SHONAN_THEME_URI . '/assets/images/photos/' . implode( '/', $parts );
+}
+
+/**
+ * photos/ 配下の実ファイルURLを返す。管理画面で差し替えていればその画像。
+ *
+ * @param string $relative photos/ からの相対パス（例: houshin/tokubetsu-hoiku/kokusai.jpg）.
+ * @return string
+ */
+function shonan_photo( $relative ) {
+	$relative = shonan_photo_key( $relative );
+
+	if ( function_exists( 'shonan_content_photo_url' ) ) {
+		$override = shonan_content_photo_url( $relative );
+		if ( $override ) {
+			return $override;
+		}
+	}
 
 	$full = SHONAN_THEME_DIR . '/assets/images/photos/' . $relative;
 	if ( file_exists( $full ) ) {
-		return SHONAN_THEME_URI . '/assets/images/photos/' . $relative;
+		return shonan_photo_file_url( $relative );
 	}
 
 	$dir = dirname( $relative );

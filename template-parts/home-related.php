@@ -42,10 +42,7 @@ $related = array(
 		</header>
 		<ul class="related__list">
 			<?php foreach ( $related as $item ) : ?>
-				<?php
-				$parts = array_map( 'rawurlencode', explode( '/', $item['image'] ) );
-				$src   = SHONAN_THEME_URI . '/assets/images/photos/' . implode( '/', $parts );
-				?>
+				<?php $src = shonan_photo( $item['image'] ); ?>
 				<li class="related__item reveal" data-reveal>
 					<a class="related__card<?php echo ! empty( $item['logo'] ) ? ' related__card--logo' : ''; ?>" href="<?php echo esc_url( $item['url'] ); ?>" target="_blank" rel="noopener noreferrer">
 						<img src="<?php echo esc_url( $src ); ?>" alt="" loading="lazy">

@@ -23,7 +23,7 @@
 			</div>
 			<figure class="mission__visual reveal" data-reveal>
 				<img
-					src="<?php echo esc_url( SHONAN_THEME_URI . '/assets/images/photos/top/enjoy-hoiku.jpg' ); ?>"
+					src="<?php echo esc_url( shonan_photo( 'top/enjoy-hoiku.jpg' ) ); ?>"
 					alt="保育の様子"
 					width="800"
 					height="960"

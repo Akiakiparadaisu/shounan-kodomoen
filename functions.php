@@ -16,6 +16,7 @@ define( 'SHONAN_THEME_URI', get_template_directory_uri() );
 require_once SHONAN_THEME_DIR . '/inc/setup.php';
 require_once SHONAN_THEME_DIR . '/inc/enqueue.php';
 require_once SHONAN_THEME_DIR . '/inc/helpers.php';
+require_once SHONAN_THEME_DIR . '/inc/photos.php';
 require_once SHONAN_THEME_DIR . '/inc/admission.php';
 require_once SHONAN_THEME_DIR . '/inc/starter-content.php';
 
@@ -23,6 +24,7 @@ if ( is_admin() ) {
 	require_once SHONAN_THEME_DIR . '/inc/admission-admin.php';
 	require_once SHONAN_THEME_DIR . '/inc/documents-admin.php';
 	require_once SHONAN_THEME_DIR . '/inc/announcement-admin.php';
+	require_once SHONAN_THEME_DIR . '/inc/photos-admin.php';
 }
 require_once SHONAN_THEME_DIR . '/inc/announcement.php';
 require_once SHONAN_THEME_DIR . '/inc/stats.php';

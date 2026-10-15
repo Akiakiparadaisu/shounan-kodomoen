@@ -15,7 +15,7 @@
 			<a class="site-footer__logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
 				<span class="site-footer__mark" aria-hidden="true">
 					<img
-						src="<?php echo esc_url( SHONAN_THEME_URI . '/assets/images/photos/en_icon.png' ); ?>"
+						src="<?php echo esc_url( shonan_photo( 'en_icon.png' ) ); ?>"
 						alt=""
 						width="52"
 						height="52"

@@ -24,7 +24,7 @@
 				<a class="site-logo-text" href="<?php echo esc_url( home_url( '/' ) ); ?>">
 					<span class="site-logo-text__mark" aria-hidden="true">
 						<img
-							src="<?php echo esc_url( SHONAN_THEME_URI . '/assets/images/photos/en_icon.png' ); ?>"
+							src="<?php echo esc_url( shonan_photo( 'en_icon.png' ) ); ?>"
 							alt=""
 							width="44"
 							height="44"

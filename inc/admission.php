@@ -248,7 +248,6 @@ function shonan_admission_targets( $settings = null ) {
  */
 function shonan_nyuen_outfit_groups() {
 	$dir = SHONAN_THEME_DIR . '/assets/images/photos/nyuen/seifuku';
-	$uri = SHONAN_THEME_URI . '/assets/images/photos/nyuen/seifuku';
 
 	$groups = array(
 		'seifuku' => array(
@@ -284,7 +283,7 @@ function shonan_nyuen_outfit_groups() {
 		$basename = basename( $file );
 		$lower    = strtolower( $basename );
 		$item     = array(
-			'url'  => $uri . '/' . $basename,
+			'url'  => shonan_photo( 'nyuen/seifuku/' . $basename ),
 			'file' => $basename,
 		);
 
