@@ -45,7 +45,6 @@ $alt      = $settings['image_id'] ? (string) get_post_meta( $settings['image_id'
 				<input type="checkbox" id="shonan-notice-dismiss">
 				次回以降表示しない
 			</label>
-			<button class="btn btn--solid" type="button" data-notice-close>閉じる</button>
 		</div>
 	</div>
 </div>
