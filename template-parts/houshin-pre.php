@@ -13,9 +13,9 @@ $standalone = ! empty( $args['standalone'] );
 $base       = 'houshin/pre-hoiku/';
 
 $merits = array(
-	'お友だちや先生との関わりや、おやつを一緒に食べる時間を通じて、お子さまが成長する機会となります。',
-	'いつも会える子どもどうし、保護者どうしで親しくなり、子どもの発達や幼児教育について情報交換や学び合うことができます。',
-	'園に通っている各年齢の子どもたちの様子を見ることで、各年齢になった時のお子さまのイメージを持つことができます。',
+	'あいさつを、読み聞かせを通して教えます。',
+	'友達と仲良くすることを、読み聞かせを通して教えます。',
+	'準備することを、読み聞かせを通して教えます。',
 );
 
 $overview = array(
@@ -91,7 +91,7 @@ $moushikomi = shonan_document( 'houshin/pre-hoiku/shonan-junior-moushikomi.pdf' 
 			<div class="pre-bubble">
 				<h3 class="pre-bubble__title">プレ保育の目的</h3>
 				<p class="pre-bubble__text">
-					プレ保育は、未就園児に対して、保育・教育的な環境を提供し、集団生活を通じて自己の成長と社会性を促すことを目的としたプログラムです。
+					湘南ジュニアは、読み聞かせの専門保育士が、あいさつ、友達と仲良くすること、準備することを教えるプレ保育です。
 				</p>
 			</div>
 			<div class="pre-bubble pre-bubble--mint">

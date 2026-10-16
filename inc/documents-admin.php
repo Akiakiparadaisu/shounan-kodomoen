@@ -48,6 +48,22 @@ function shonan_documents_admin_save() {
 
 	update_option( 'shonan_managed_documents', $saved, false );
 
+	$from  = isset( $_POST['shonan_gansho_from'] ) ? shonan_admission_sanitize_ymd( wp_unslash( $_POST['shonan_gansho_from'] ) ) : '';
+	$until = isset( $_POST['shonan_gansho_until'] ) ? shonan_admission_sanitize_ymd( wp_unslash( $_POST['shonan_gansho_until'] ) ) : '';
+	if ( '' !== $from && '' !== $until && $from > $until ) {
+		$swap  = $from;
+		$from  = $until;
+		$until = $swap;
+	}
+	update_option(
+		'shonan_gansho_publish',
+		array(
+			'from'  => $from,
+			'until' => $until,
+		),
+		false
+	);
+
 	$admission = get_option( 'shonan_admission_settings', array() );
 	if ( ! is_array( $admission ) ) {
 		$admission = array();
@@ -115,6 +131,16 @@ function shonan_documents_admin_page() {
 								<strong><?php echo esc_html( $doc['label'] ); ?></strong>
 								<input type="hidden" name="shonan_docs[<?php echo esc_attr( $key ); ?>]" value="<?php echo esc_attr( (string) $id ); ?>">
 								<p class="shonan-doc__name" style="margin:0.35rem 0 0.7rem;color:#50575e;"><?php echo esc_html( $name ); ?></p>
+								<?php if ( ! empty( $doc['count'] ) ) : ?>
+									<?php $publish = shonan_gansho_publish_settings(); ?>
+									<p style="margin:0.8rem 0 0.4rem;">配信期間</p>
+									<p style="margin:0 0 0.7rem;">
+										<label>開始 <input type="date" name="shonan_gansho_from" value="<?php echo esc_attr( $publish['from'] ); ?>"></label>
+										<label style="margin-left:0.8rem;">終了 <input type="date" name="shonan_gansho_until" value="<?php echo esc_attr( $publish['until'] ); ?>"></label>
+									</p>
+									<p style="margin:0 0 0.7rem;color:#50575e;">開始日から終了日までダウンロードできます。終了日を空にすると、開始日以降は配信を続けます。いまは<?php echo shonan_gansho_is_open() ? '配信中' : '配信していません'; ?>です。</p>
+									<p style="margin:0 0 0.7rem;">ダウンロード <?php echo esc_html( number_format_i18n( shonan_document_download_count( $key ) ) ); ?>回</p>
+								<?php endif; ?>
 								<button type="button" class="button shonan-doc__pick">資料を選ぶ</button>
 								<button type="button" class="button shonan-doc__clear">差し替えをやめる</button>
 							</div>

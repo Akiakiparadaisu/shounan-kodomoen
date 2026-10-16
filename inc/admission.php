@@ -345,6 +345,12 @@ function shonan_managed_documents() {
 			'fallback' => 'nyuen/boshu-youkou-r8.pdf',
 			'group'    => '入園のご希望',
 		),
+		'gansho'      => array(
+			'label'    => '入園願書',
+			'fallback' => 'nyuen/入園願書.pdf',
+			'group'    => '入園のご希望',
+			'count'    => true,
+		),
 		'junior'      => array(
 			'label'    => '湘南ジュニアのご案内',
 			'fallback' => 'houshin/pre-hoiku/junior-poster.pdf',
@@ -403,3 +409,132 @@ function shonan_managed_document_url( $key ) {
 	$bundled = shonan_document( $docs[ $key ]['fallback'] );
 	return $bundled ? $bundled : '';
 }
+
+/**
+ * ダウンロード回数を数えるためのURL
+ *
+ * @param string $key 資料キー.
+ * @return string
+ */
+function shonan_document_download_url( $key ) {
+	return add_query_arg( 'shonan_download', sanitize_key( $key ), home_url( '/' ) );
+}
+
+/**
+ * 入園願書の配信期間
+ *
+ * @return array{from:string,until:string}
+ */
+function shonan_gansho_publish_settings() {
+	$saved = get_option( 'shonan_gansho_publish', array() );
+	if ( ! is_array( $saved ) ) {
+		$saved = array();
+	}
+	$from  = isset( $saved['from'] ) ? (string) $saved['from'] : '2026-10-15';
+	$until = isset( $saved['until'] ) ? (string) $saved['until'] : '';
+	if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $from ) ) {
+		$from = '';
+	}
+	if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $until ) ) {
+		$until = '';
+	}
+	return array(
+		'from'  => $from,
+		'until' => $until,
+	);
+}
+
+/**
+ * 今日が願書の配信期間か
+ *
+ * 開始日が空のときは配信しない。終了日が空のときは、開始日以降はずっと配信する。
+ *
+ * @return bool
+ */
+function shonan_gansho_is_open() {
+	$period = shonan_gansho_publish_settings();
+	if ( '' === $period['from'] ) {
+		return false;
+	}
+	$tz    = function_exists( 'shonan_stats_timezone' ) ? shonan_stats_timezone() : wp_timezone();
+	$today = ( new DateTimeImmutable( 'now', $tz ) )->format( 'Y-m-d' );
+	if ( $today < $period['from'] ) {
+		return false;
+	}
+	if ( '' !== $period['until'] && $today > $period['until'] ) {
+		return false;
+	}
+	return true;
+}
+
+/**
+ * 資料のダウンロード回数
+ *
+ * @param string $key 資料キー.
+ * @return int
+ */
+function shonan_document_download_count( $key ) {
+	$counts = get_option( 'shonan_document_downloads', array() );
+	if ( ! is_array( $counts ) || ! isset( $counts[ $key ] ) ) {
+		return 0;
+	}
+	return (int) $counts[ $key ];
+}
+
+/**
+ * ダウンロード回数を1増やす
+ *
+ * @param string $key 資料キー.
+ */
+function shonan_document_record_download( $key ) {
+	$counts = get_option( 'shonan_document_downloads', array() );
+	if ( ! is_array( $counts ) ) {
+		$counts = array();
+	}
+	$counts[ $key ] = ( isset( $counts[ $key ] ) ? (int) $counts[ $key ] : 0 ) + 1;
+	update_option( 'shonan_document_downloads', $counts, false );
+}
+
+/**
+ * ダウンロード用のURLからPDFへ渡す
+ */
+function shonan_document_download_gate() {
+	if ( ! isset( $_GET['shonan_download'] ) ) {
+		return;
+	}
+
+	$key  = sanitize_key( wp_unslash( $_GET['shonan_download'] ) );
+	$docs = shonan_managed_documents();
+	if ( ! isset( $docs[ $key ] ) ) {
+		status_header( 404 );
+		exit;
+	}
+
+	$url = shonan_managed_document_url( $key );
+	if ( ! $url ) {
+		status_header( 404 );
+		exit;
+	}
+
+	if ( 'gansho' === $key && ! shonan_gansho_is_open() ) {
+		status_header( 404 );
+		nocache_headers();
+		wp_die( '入園願書の配信期間外です。', '入園願書', array( 'response' => 404 ) );
+	}
+
+	$purpose = '';
+	if ( isset( $_SERVER['HTTP_SEC_PURPOSE'] ) ) {
+		$purpose = strtolower( (string) wp_unslash( $_SERVER['HTTP_SEC_PURPOSE'] ) );
+	} elseif ( isset( $_SERVER['HTTP_PURPOSE'] ) ) {
+		$purpose = strtolower( (string) wp_unslash( $_SERVER['HTTP_PURPOSE'] ) );
+	}
+	$prefetch = ( false !== strpos( $purpose, 'prefetch' ) );
+	if ( ! empty( $docs[ $key ]['count'] ) && ! $prefetch && ! shonan_stats_is_bot() ) {
+		shonan_document_record_download( $key );
+	}
+
+	nocache_headers();
+	wp_safe_redirect( $url, 302 );
+	exit;
+}
+add_action( 'template_redirect', 'shonan_document_download_gate' );

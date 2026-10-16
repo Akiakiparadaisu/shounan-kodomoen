@@ -164,6 +164,21 @@ $pre_url  = get_page_by_path( 'pre-hoiku' )
 					</p>
 				</article>
 			</div>
+			<?php
+			$gansho  = shonan_managed_document_url( 'gansho' );
+			$publish = shonan_gansho_publish_settings();
+			$tz      = function_exists( 'shonan_stats_timezone' ) ? shonan_stats_timezone() : wp_timezone();
+			$today   = ( new DateTimeImmutable( 'now', $tz ) )->format( 'Y-m-d' );
+			?>
+			<?php if ( $gansho && shonan_gansho_is_open() ) : ?>
+				<p class="nyuen-gansho__download">
+					<a class="btn btn--solid" href="<?php echo esc_url( shonan_document_download_url( 'gansho' ) ); ?>">入園願書（PDF）をダウンロード</a>
+				</p>
+			<?php elseif ( $gansho && '' !== $publish['from'] && $today < $publish['from'] ) : ?>
+				<p class="nyuen-gansho__download"><?php echo esc_html( shonan_format_reiwa_date_label( $publish['from'] ) ); ?>からダウンロードできます。</p>
+			<?php elseif ( $gansho && '' !== $publish['until'] && $today > $publish['until'] ) : ?>
+				<p class="nyuen-gansho__download">入園願書のダウンロードは終了しました。</p>
+			<?php endif; ?>
 		</section>
 
 		<section class="nyuen-hours" id="hoiku-jikan">
@@ -282,7 +297,7 @@ $pre_url  = get_page_by_path( 'pre-hoiku' )
 					<p class="section-eyebrow">未就園児向け</p>
 					<h2 class="section-title">湘南ジュニア</h2>
 				</header>
-				<p>未就園児に対して保育・教育的な環境を提供し、集団生活を通じて成長と社会性を促すプログラムです。詳しくは園の方針ページでもご紹介しています。</p>
+				<p>湘南ジュニアは、読み聞かせの専門保育士が、あいさつ、友達と仲良くすること、準備することを教えるプレ保育です。詳しくは園の方針ページでもご紹介しています。</p>
 				<p class="nyuen-junior__actions">
 					<a class="btn btn--solid" href="<?php echo esc_url( $pre_url ); ?>">湘南ジュニアについて見る</a>
 					<button type="button" class="btn btn--outline" data-junior-3d-open>湘南ジュニアの建物を見る</button>

@@ -24,7 +24,7 @@
 		</h1>
 		<div class="hero__actions reveal" data-reveal>
 			<a class="btn btn--solid" href="<?php echo esc_url( home_url( '/nyuen/' ) ); ?>">入園案内を見る</a>
-			<a class="btn btn--ghost" href="<?php echo esc_url( home_url( '/enseikatsu/' ) ); ?>">園生活をのぞく</a>
+			<a class="btn btn--ghost" href="<?php echo esc_url( home_url( '/enseikatsu/' ) ); ?>">園生活を見る</a>
 		</div>
 	</div>
 	<div class="hero__wave" aria-hidden="true">

@@ -1117,7 +1117,8 @@ html.js-reveal .guide-block.is-visible .guide-block__links li:nth-child(3) { ani
 }
 
 .nyuen-targets__download,
-.nyuen-sessions__download {
+.nyuen-sessions__download,
+.nyuen-gansho__download {
   margin-top: 1.1rem;
 }
 
