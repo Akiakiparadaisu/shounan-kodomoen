@@ -27,7 +27,7 @@ $groups = shonan_site_map_groups();
 							<a class="site-map__page" href="<?php echo esc_url( $page['url'] ); ?>"><?php echo esc_html( $page['label'] ); ?></a>
 							<ul class="site-map__sections">
 								<?php foreach ( $page['sections'] as $section ) : ?>
-									<li><a href="<?php echo esc_url( $section['url'] ); ?>"><?php echo esc_html( $section['label'] ); ?></a></li>
+									<li><a href="<?php echo esc_url( $section['url'] ); ?>"><?php echo wp_kses( $section['label'], array( 'br' => array() ) ); ?></a></li>
 								<?php endforeach; ?>
 							</ul>
 						</div>

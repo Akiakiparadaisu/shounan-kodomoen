@@ -63,6 +63,7 @@ $facilities = array(
 		'title' => '湘南ジュニア＆誰でも通園の建物',
 		'text'  => '未就園児が過ごすための、専用の建物です。ここでは、誰でも通園と湘南ジュニア教室を実施しています。',
 		'image' => $base . 'jr-building.jpg',
+		'view'  => true,
 	),
 );
 ?>
@@ -113,6 +114,11 @@ $facilities = array(
 						<div class="facility-card__body">
 							<h3 class="facility-card__title"><?php echo esc_html( $item['title'] ); ?></h3>
 							<p class="facility-card__text"><?php echo esc_html( $item['text'] ); ?></p>
+							<?php if ( ! empty( $item['view'] ) ) : ?>
+								<p class="facility-card__view">
+									<button type="button" class="btn btn--solid" data-junior-3d-open>建物を見る</button>
+								</p>
+							<?php endif; ?>
 						</div>
 					</article>
 				<?php endforeach; ?>
@@ -165,4 +171,5 @@ $facilities = array(
 </div>
 
 <?php
+get_template_part( 'template-parts/junior-3d' );
 get_footer();

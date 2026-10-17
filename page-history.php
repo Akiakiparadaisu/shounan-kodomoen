@@ -24,7 +24,8 @@ $guidance = array(
 
 $activities = array(
 	array(
-		'title' => '職員のレベルアップ（保育重点項目）',
+		'title' => '職員のレベルアップ',
+		'note'  => '（重点保育項目）',
 		'text'  => '毎年テーマを決め、自己研修・発表・実践・成果発表までを一連で行う取り組みです。保育内容と保育者の力を高め、35年間続く園の軸となりました。',
 	),
 	array(
@@ -190,13 +191,13 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 						<ol class="history-timeline__list">
 							<li>
 								<span class="history-timeline__mark">昭和25年</span>
-								<strong>創設の想い</strong>
+								<a class="history-timeline__jump" href="#why-started"><strong>想い</strong></a>
 								<em>幼児教育への決意</em>
 							</li>
 							<li>
 								<span class="history-timeline__mark">昭和57年</span>
 								<strong>ふじ幼児園を引き継ぐ</strong>
-								<em>園児13名（創設昭和44年）</em>
+								<em>（創設昭和４４年）<br>園児13名</em>
 							</li>
 							<li>
 								<span class="history-timeline__mark">成長</span>
@@ -210,8 +211,7 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 							</li>
 							<li>
 								<span class="history-timeline__mark">いま</span>
-								<strong>こども園へ</strong>
-								<em>50年の実績</em>
+								<a class="history-timeline__jump" href="<?php echo esc_url( home_url( '/houshin/' ) ); ?>"><strong>湘南こども園へ</strong></a>
 							</li>
 						</ol>
 					</div>
@@ -383,17 +383,20 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 				<?php foreach ( $activities as $i => $item ) : ?>
 					<article class="history-support__card history-support__card--<?php echo esc_attr( (string) ( $i + 1 ) ); ?>">
 						<p class="history-support__num"><?php echo esc_html( sprintf( '%02d', $i + 1 ) ); ?></p>
-						<h3><?php echo esc_html( $item['title'] ); ?></h3>
+						<h3>
+							<?php echo esc_html( $item['title'] ); ?>
+							<?php if ( ! empty( $item['note'] ) ) : ?>
+								<?php if ( $katsudo_pdf ) : ?>
+									<a class="history-support__pdf" href="<?php echo esc_url( $katsudo_pdf ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $item['note'] ); ?></a>
+								<?php else : ?>
+									<?php echo esc_html( $item['note'] ); ?>
+								<?php endif; ?>
+							<?php endif; ?>
+						</h3>
 						<p><?php echo esc_html( $item['text'] ); ?></p>
 					</article>
 				<?php endforeach; ?>
 			</div>
-
-			<?php if ( $katsudo_pdf ) : ?>
-				<p class="history-download">
-					<a class="btn btn--solid" href="<?php echo esc_url( $katsudo_pdf ); ?>" target="_blank" rel="noopener">重点保育項目</a>
-				</p>
-			<?php endif; ?>
 		</section>
 
 		<section class="history-achievements history-chapter" id="jisseki">

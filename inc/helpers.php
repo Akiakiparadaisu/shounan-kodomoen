@@ -389,7 +389,7 @@ function shonan_site_map_groups() {
 					'label'    => '園の方針と特長',
 					'url'      => home_url( '/houshin/' ),
 					'sections' => array(
-						array( 'label' => 'モットーと方針', 'url' => home_url( '/houshin/#en-no-houshin' ) ),
+						array( 'label' => '方針', 'url' => home_url( '/houshin/#en-no-houshin' ) ),
 						array( 'label' => '特別保育', 'url' => home_url( '/houshin/#tokubetsu-hoiku' ) ),
 						array( 'label' => '理科教室', 'url' => home_url( '/houshin/#rika' ) ),
 						array( 'label' => '国際感覚', 'url' => home_url( '/houshin/#kokusai' ) ),
@@ -422,7 +422,7 @@ function shonan_site_map_groups() {
 						array( 'label' => 'エレベーター', 'url' => home_url( '/shisetsu/#elevator' ) ),
 						array( 'label' => '教室（保育）', 'url' => home_url( '/shisetsu/#kyoshitsu' ) ),
 						array( 'label' => '教室（年少〜年長）', 'url' => home_url( '/shisetsu/#kyoshitsu-nencho' ) ),
-						array( 'label' => '湘南ジュニア＆誰でも通園の建物', 'url' => home_url( '/shisetsu/#jr-building' ) ),
+						array( 'label' => '湘南ジュニア＆<br>誰でも通園の建物', 'url' => home_url( '/shisetsu/#jr-building' ) ),
 						array( 'label' => 'アクセス', 'url' => home_url( '/shisetsu/#access' ) ),
 					),
 				),
