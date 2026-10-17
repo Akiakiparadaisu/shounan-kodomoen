@@ -47,7 +47,7 @@ function shonan_content_photo_catalog() {
 			),
 			array(
 				'path'  => 'top/history1.jpg',
-				'label' => 'ご案内：園について詳しく',
+				'label' => 'ご案内：園に興味のある方へ',
 			),
 			array(
 				'path'  => 'top/kanrensosiki/湘南保育(1)_R.PNG',
@@ -193,7 +193,6 @@ function shonan_content_photo_catalog() {
 			array( 'path' => $room . 'entei.jpg', 'label' => '園庭' ),
 			array( 'path' => $room . 'toilet.jpg', 'label' => 'こどもトイレ' ),
 			array( 'path' => $room . 'houle.jpg', 'label' => 'ホール（講堂）' ),
-			array( 'path' => $room . 'tyurijyou.jpg', 'label' => '駐輪場' ),
 			array( 'path' => $room . 'parking_car.jpg', 'label' => '駐車場' ),
 			array( 'path' => $room . 'solar_panel.jpg', 'label' => 'ソーラーパネル' ),
 			array( 'path' => $room . 'elevator.jpg', 'label' => 'エレベーター' ),
@@ -206,9 +205,9 @@ function shonan_content_photo_catalog() {
 			array( 'path' => 'nyuen/seifuku/taisouhuku01.png', 'label' => '体操服 1' ),
 			array( 'path' => 'nyuen/seifuku/taisouhuku02.png', 'label' => '体操服 2' ),
 		),
-		'50年の幼児教育実績' => array(
+		'半世紀の幼児教育実績' => array(
 			array( 'path' => 'history/history_top.png', 'label' => 'ページ上部' ),
-			array( 'path' => 'history/why-started/history1.jpg', 'label' => '当時のふじ幼児園' ),
+			array( 'path' => 'history/why-started/history1.jpg', 'label' => '創設時のふじ幼児園' ),
 			array( 'path' => 'history/why-started/history2.jpg', 'label' => '現在のこども園' ),
 			array( 'path' => 'history/enji-kakuho/history3.jpg', 'label' => '園児確保の取り組み' ),
 			array( 'path' => 'history/history4_otya.jpg', 'label' => '日本の伝統文化を体験' ),

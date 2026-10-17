@@ -29,32 +29,9 @@ $pre_url  = get_page_by_path( 'pre-hoiku' )
 		</header>
 
 		<section class="nyuen-appeal" id="zehi-shounan">
-			<header class="section-header">
-				<p class="section-eyebrow">ぜひ、湘南こども園へ</p>
-				<h2 class="section-title">大切にしていること</h2>
-			</header>
-			<div class="nyuen-appeal__grid">
-				<article class="nyuen-appeal__card">
-					<h3 class="nyuen-appeal__title">安心安全を基盤とした保育環境</h3>
-					<p>子どもたちが安心して過ごせるよう、衛生管理と安全対策を徹底しています。防犯カメラの設置や定期的な避難訓練など、万全の体制でお子さまをお守りします。</p>
-				</article>
-				<article class="nyuen-appeal__card">
-					<h3 class="nyuen-appeal__title">保護者と共に、子どもを真ん中に</h3>
-					<p>家庭的な雰囲気の中で、一人ひとりに目が行き届く保育を実践しています。経験豊富な保育者が、親身になって成長をサポートします。</p>
-				</article>
-				<article class="nyuen-appeal__card">
-					<h3 class="nyuen-appeal__title">園独自の特別保育と重点保育</h3>
-					<p>音楽・文化・スポーツ・科学など、楽しみながら学べる多彩なプログラムで、創造力や社会性を育みます。</p>
-				</article>
-				<article class="nyuen-appeal__card">
-					<h3 class="nyuen-appeal__title">アレルギーに配慮した給食</h3>
-					<p>専任の栄養士が監修する給食は、旬の食材を取り入れた栄養バランスの良いメニューです。代替食やなかよし給食など、アレルギー対応にも細心の注意を払っています。</p>
-				</article>
-				<article class="nyuen-appeal__card nyuen-appeal__card--wide">
-					<h3 class="nyuen-appeal__title">子どもに寄り添った保育</h3>
-					<p>「園児はわが子」の理念のもと、子どもを慈しみ、保護者の思いに寄り添います。園と保護者が情報を共有し、地域に開かれた子育て支援の拠点としても役割を果たしていきます。</p>
-				</article>
-			</div>
+			<p class="nyuen-appeal__more">
+				<a class="text-link" href="<?php echo esc_url( home_url( '/houshin/' ) ); ?>">園の方針と特徴をご覧ください。</a>
+			</p>
 		</section>
 
 		<section class="nyuen-targets" id="taishoji-teiin">
@@ -92,7 +69,7 @@ $pre_url  = get_page_by_path( 'pre-hoiku' )
 				<p class="nyuen-visit__text"><?php echo esc_html( $settings['visit_lead'] ); ?></p>
 				<div class="nyuen-visit__actions">
 					<a class="btn btn--solid" href="tel:0467849229">TEL 0467-84-9229</a>
-					<a class="btn btn--ghost" href="mailto:shounankodomoen2018@shounankodomoen.jp">メールで問い合わせる</a>
+					<a class="btn btn--outline" href="mailto:shounankodomoen2018@shounankodomoen.jp">メールで問い合わせる</a>
 				</div>
 			</div>
 		</section>
@@ -259,7 +236,7 @@ $pre_url  = get_page_by_path( 'pre-hoiku' )
 			<header class="section-header">
 				<p class="section-eyebrow">装いのご案内</p>
 				<h2 class="section-title">制服と体操服</h2>
-				<p class="section-lead">通園や活動で身につける服です。詳細・ご注文は入園面接後にご案内します。</p>
+				<p class="section-lead">通園や活動で身につける服です。</p>
 			</header>
 
 			<?php foreach ( $outfits as $key => $group ) : ?>

@@ -13,12 +13,12 @@ $workplace = array(
 		'text'  => '子どもたちの元気な声や笑顔であふれています。職員も子どもたちから元気をもらい、毎日明るく働いています。',
 	),
 	array(
-		'title' => '丁寧な指導',
-		'text'  => '保育に不慣れな方も大丈夫。先輩保育者が、保育のやり方や子どもへの関わり方を丁寧に伝えます。',
+		'title' => '保育に不慣れな方への丁寧な指導',
+		'text'  => '保育経験の少ない方やブランクのある方も、安心して働けるようサポートします。職員がマンツーマン（1対1）で指導し、子どもへの声のかけ方や遊びへの関わり方、保育の進め方などを実践を通して丁寧に伝えます。一人ひとりの経験や習熟度に合わせて、無理なく仕事を覚えられる環境を整えています。',
 	),
 	array(
 		'title' => '意見を大切に',
-		'text'  => '子どもにとって良いと思うことがあれば、遠慮なく提案してください。みんなで考え、保育をより良くしていきます。',
+		'text'  => '子どもにとって良いと思うことがあれば、遠慮なく提案してください。あなたの理想の保育・教育を職員一丸となって実現します。',
 	),
 	array(
 		'title' => '助け合うチーム',
@@ -39,7 +39,7 @@ $workplace = array(
 		<section class="kyujin-message" id="message">
 			<header class="section-header">
 				<p class="section-eyebrow">園長メッセージ</p>
-				<h2 class="section-title">保育教諭を目指す方へ</h2>
+				<h2 class="section-title">当園で働きたい方へ</h2>
 			</header>
 
 			<div class="kyujin-message__panel">
@@ -87,7 +87,7 @@ $workplace = array(
 				</a>
 				<a class="kyujin-link-card" href="<?php echo esc_url( home_url( '/history/' ) ); ?>">
 					<span class="kyujin-link-card__label">歩み</span>
-					<strong>50年の幼児教育実績</strong>
+					<strong>半世紀の幼児教育実績</strong>
 					<span class="kyujin-link-card__more">詳しく見る</span>
 				</a>
 			</div>

@@ -15,7 +15,7 @@ $base       = 'houshin/tokubetsu-hoiku/';
 $programs = array(
 	array(
 		'id'    => 'rika',
-		'title' => '理科教室',
+		'title' => '理科教室（理科に興味）',
 		'text'  => '磁石や豆電球などを使った簡単な実験を行い、幼児期から理科の面白さを感じられるようなカリキュラムを組んでいます。子どもたちは、毎回、目を輝かせて実験しています。「小学校へいったら、もっと理科の勉強をしたい。」という声が聞かれています。卒園後も、さらに学びを深めていくきっかけとなっています。',
 		'image' => $base . 'rikazikken.jpg',
 	),
@@ -44,10 +44,15 @@ $programs = array(
 		),
 	),
 	array(
-		'id'    => 'mushiba',
-		'title' => 'むし歯０活動',
-		'text'  => '人生100年時代を健康に生きるために重要な歯。乳幼児期から『自分の歯は自分で守る』の土台作りをすることが大切です。むし歯０カリキュラムでは、予防の知識・歯ブラシの使い方・習慣化、３つのポイントを楽しみながら体験的に学んでいます。「歯磨きを嫌がらなくなった」「お菓子の食べ方に気を付けるようになった」と保護者の方々からご好評をいただいています。お子さんの歯や口の心配事のご相談も受け付けています。',
-		'image' => $base . 'musiba0.jpg',
+		'id'         => 'mushiba',
+		'title'      => 'むし歯０活動',
+		'note'       => '（重点保育項目平成８年）',
+		'paragraphs' => array(
+			'人生100年時代を健康に生きるために大切な歯。乳幼児期から「自分の歯は自分で守る」という意識を育むことが重要です。',
+			'むし歯０カリキュラムでは、「歯磨きを好きになる」「正しい磨き方を身につける」「毎日の習慣にする」の3つを大切にしています。子どもたちが楽しみながら歯磨きに親しみ、自分から進んで歯を磨けるようになることを目指しています。',
+			'保護者の方々からは「歯磨きを嫌がらなくなった」「自分から歯を磨くようになった」などのお声もいただいています。また、お子さんの歯やお口に関するご相談も受け付けています。',
+		),
+		'image'      => $base . 'musiba0.jpg',
 	),
 );
 ?>
@@ -60,7 +65,7 @@ $programs = array(
 			<h2 class="section-title screen-reader-text" id="tokubetsu-hoiku-title">特別保育の内容</h2>
 		<?php endif; ?>
 		<p class="section-lead">
-			幼児期に必要と思われる感覚・習慣の基盤を育むために、特別教育として「理科教室」「国際感覚の向上」「日本の伝統文化を学ぶ」「むし歯０活動」を行っています。
+			幼児期に必要と思われる感覚・習慣の基盤を育むために、特別教育として「理科教室（理科に興味）」「国際感覚の向上」「日本の伝統文化を学ぶ」「むし歯０活動」を行っています。
 		</p>
 	</header>
 
@@ -79,8 +84,19 @@ $programs = array(
 					</figure>
 				<?php endif; ?>
 				<div class="special-block__body<?php echo ! empty( $program['items'] ) ? ' special-block__body--full' : ''; ?>">
-					<h3 class="special-block__title"><?php echo esc_html( $program['title'] ); ?></h3>
-					<p class="special-block__text"><?php echo esc_html( $program['text'] ); ?></p>
+					<h3 class="special-block__title">
+						<?php echo esc_html( $program['title'] ); ?>
+						<?php if ( ! empty( $program['note'] ) ) : ?>
+							<span class="special-block__note"><?php echo esc_html( $program['note'] ); ?></span>
+						<?php endif; ?>
+					</h3>
+					<?php if ( ! empty( $program['paragraphs'] ) ) : ?>
+						<?php foreach ( $program['paragraphs'] as $paragraph ) : ?>
+							<p class="special-block__text"><?php echo esc_html( $paragraph ); ?></p>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<p class="special-block__text"><?php echo esc_html( $program['text'] ); ?></p>
+					<?php endif; ?>
 					<?php if ( ! empty( $program['items'] ) ) : ?>
 						<div class="special-block__items">
 							<?php foreach ( $program['items'] as $item ) : ?>

@@ -49,7 +49,7 @@ if ( $news_query->have_posts() ) {
 	<div class="section__inner news__inner">
 		<header class="section-header reveal" data-reveal>
 			<h2 class="section-title">おしらせ</h2>
-			<p class="section-lead">園での行事やイベント、園庭開放について告知します。</p>
+			<p class="section-lead">園庭解放、その他について</p>
 		</header>
 
 		<div class="news__layout">

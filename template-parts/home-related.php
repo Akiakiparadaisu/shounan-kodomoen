@@ -37,8 +37,7 @@ $related = array(
 <section class="section related" id="related">
 	<div class="section__inner">
 		<header class="section-header reveal" data-reveal>
-			<p class="section-eyebrow">関連組織</p>
-			<h2 class="section-title">関連会社・保育園</h2>
+			<h2 class="section-title">関連組織</h2>
 		</header>
 		<ul class="related__list">
 			<?php foreach ( $related as $item ) : ?>

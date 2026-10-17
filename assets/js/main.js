@@ -32,6 +32,63 @@
     });
   }
 
+  function fitPrimaryNav() {
+    if (!nav) return;
+    var links = nav.querySelectorAll('.nav-list a, .nav-group a');
+    var desktop = window.matchMedia('(min-width: 821px)').matches;
+    if (!desktop || !links.length) {
+      links.forEach(function (link) {
+        link.style.fontSize = '';
+        link.style.paddingInline = '';
+      });
+      return;
+    }
+
+    var min = 10;
+    var max = 16.5;
+    var low = min;
+    var high = max;
+    var size = max;
+
+    function apply(px) {
+      var pad = Math.max(3, px * 0.32);
+      links.forEach(function (link) {
+        link.style.fontSize = px + 'px';
+        link.style.paddingInline = pad + 'px';
+      });
+    }
+
+    function wraps() {
+      if (nav.scrollWidth > nav.clientWidth + 1) {
+        return true;
+      }
+      var first = nav.firstElementChild;
+      return !!(first && nav.scrollHeight > first.offsetHeight + 6);
+    }
+
+    apply(max);
+    if (!wraps()) {
+      return;
+    }
+
+    for (var i = 0; i < 10; i += 1) {
+      size = (low + high) / 2;
+      apply(size);
+      if (wraps()) {
+        high = size;
+      } else {
+        low = size;
+      }
+    }
+    apply(low);
+  }
+
+  fitPrimaryNav();
+  window.addEventListener('resize', fitPrimaryNav);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(fitPrimaryNav);
+  }
+
   function markReveal(el) {
     if (!el || el.classList.contains('reveal') || el.hasAttribute('data-reveal')) {
       return;
@@ -239,6 +296,22 @@
     return panel ? panel.querySelector('.year-events__grid') : null;
   }
 
+  function eventsShuffleOff() {
+    return window.matchMedia('(max-width: 640px)').matches;
+  }
+
+  function resetEventCards(grid) {
+    if (!grid) return;
+    grid.classList.add('is-ready');
+    grid.dataset.dealt = '1';
+    grid.querySelectorAll('.event-card').forEach(function (card) {
+      card.classList.remove('is-back');
+      card.style.transition = 'none';
+      card.style.transform = '';
+      card.style.zIndex = '';
+    });
+  }
+
   function pileEventCards(grid, animate) {
     if (!grid) return;
     grid.classList.add('is-ready');
@@ -294,6 +367,14 @@
         btn.setAttribute('aria-selected', String(active));
       });
 
+      if (eventsShuffleOff()) {
+        showEventPanel(key);
+        resetEventCards(eventGrid(document.querySelector('[data-events-panel="' + key + '"]')));
+        eventKey = key;
+        eventBusy = false;
+        return;
+      }
+
       if (instant || key === eventKey) {
         showEventPanel(key);
         eventKey = key;
@@ -326,10 +407,14 @@
 
     activateEventTab('1', true);
     var firstGrid = eventGrid(document.querySelector('[data-events-panel="1"]'));
-    pileEventCards(firstGrid, false);
+    if (eventsShuffleOff()) {
+      resetEventCards(firstGrid);
+    } else {
+      pileEventCards(firstGrid, false);
+    }
 
     function dealWhenSeen() {
-      if (!firstGrid) return;
+      if (!firstGrid || eventsShuffleOff()) return;
       var rect = firstGrid.getBoundingClientRect();
       var vh = window.innerHeight || document.documentElement.clientHeight;
       if (rect.top < vh * 0.72 && rect.bottom > 80 && eventKey === '1' && !firstGrid.dataset.dealt) {
@@ -341,12 +426,16 @@
 
     window.addEventListener('scroll', dealWhenSeen, { passive: true });
     window.setTimeout(dealWhenSeen, 240);
+    window.addEventListener('resize', function () {
+      if (!eventsShuffleOff()) return;
+      document.querySelectorAll('.year-events__grid').forEach(resetEventCards);
+    });
   }
 
   var busRoads = Array.prototype.slice.call(document.querySelectorAll('[data-bus-road]'));
   if (busRoads.length) {
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var busDriveMs = reduceMotion ? 3200 : 14000;
+    var busDriveMs = reduceMotion ? 2400 : 9000;
 
     function finishBus(road) {
       if (road.classList.contains('is-passed')) return;

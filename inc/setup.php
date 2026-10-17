@@ -133,7 +133,7 @@ function shonan_document_title( $title ) {
 		'shisetsu'            => '園の施設｜寒川町の認定こども園 ' . $brand,
 		'nyuen'               => '入園案内・説明会｜寒川町の認定こども園 ' . $brand,
 		'kyujin'              => '保育士求人｜寒川町 ' . $brand,
-		'history'             => '50年の幼児教育実績｜寒川町 ' . $brand,
+		'history'             => '半世紀の幼児教育実績｜寒川町 ' . $brand,
 		'mirai'               => 'これからの幼児教育｜寒川町 ' . $brand,
 		'shorui'              => '在園の保護者へ｜' . $brand,
 		'pre-hoiku'           => '湘南ジュニア｜寒川町の未就園児・誰でも通園',

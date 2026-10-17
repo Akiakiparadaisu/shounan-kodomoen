@@ -167,7 +167,7 @@ function shonan_default_nav_items() {
 			'url'   => home_url( '/kyujin/' ),
 		),
 		array(
-			'label' => '50年の幼児教育実績',
+			'label' => '半世紀の幼児教育実績',
 			'url'   => home_url( '/history/' ),
 		),
 		array(
@@ -195,6 +195,148 @@ function shonan_fallback_menu() {
 		);
 	}
 	echo '</ul>';
+}
+
+/**
+ * メニュー項目が属する色分けグループ
+ *
+ * @param string $title メニュー名.
+ * @return array{0:string,1:int}|null
+ */
+function shonan_nav_group_for_title( $title ) {
+	$title = trim( wp_strip_all_tags( html_entity_decode( (string) $title, ENT_QUOTES, 'UTF-8' ) ) );
+	$map   = array(
+		'入園のご希望'         => array( 'people', 0 ),
+		'入園のご希望の方へ'   => array( 'people', 0 ),
+		'求職中の方へ'         => array( 'people', 1 ),
+		'在園の保護者へ'       => array( 'people', 2 ),
+		'在園の保護者の方へ'   => array( 'people', 2 ),
+		'園の方針と特長'       => array( 'garden', 0 ),
+		'園の方針と特徴'       => array( 'garden', 0 ),
+		'園生活のようす'       => array( 'garden', 1 ),
+		'園の施設'             => array( 'garden', 2 ),
+		'園の施設・アクセス'   => array( 'garden', 2 ),
+		'半世紀の幼児教育実績' => array( 'future', 0 ),
+		'50年の幼児教育実績'   => array( 'future', 0 ),
+		'５０年の幼児教育実績' => array( 'future', 0 ),
+		'50年の実績'           => array( 'future', 0 ),
+		'５０年の実績'         => array( 'future', 0 ),
+		'将来の幼児教育'       => array( 'future', 1 ),
+	);
+
+	return isset( $map[ $title ] ) ? $map[ $title ] : null;
+}
+
+/**
+ * メインメニューの項目
+ *
+ * @return array<int, array{label:string,url:string,current:bool}>
+ */
+function shonan_primary_menu_items() {
+	$locations = get_nav_menu_locations();
+	$menu_id   = isset( $locations['primary'] ) ? (int) $locations['primary'] : 0;
+	$items     = $menu_id ? wp_get_nav_menu_items( $menu_id ) : array();
+
+	if ( $items && function_exists( '_wp_menu_item_classes_by_context' ) ) {
+		_wp_menu_item_classes_by_context( $items );
+	}
+
+	$out = array();
+	if ( $items ) {
+		foreach ( $items as $item ) {
+			if ( (int) $item->menu_item_parent !== 0 ) {
+				continue;
+			}
+			$classes = array_filter( (array) $item->classes );
+			$out[]   = array(
+				'label'   => shonan_nav_menu_item_title( (string) $item->title, $item ),
+				'url'     => (string) $item->url,
+				'current' => in_array( 'current-menu-item', $classes, true ) || in_array( 'current_page_item', $classes, true ),
+			);
+		}
+	}
+
+	if ( $out ) {
+		return $out;
+	}
+
+	foreach ( shonan_default_nav_items() as $item ) {
+		$target = untrailingslashit( (string) wp_parse_url( $item['url'], PHP_URL_PATH ) );
+		$here   = untrailingslashit( (string) wp_parse_url( home_url( add_query_arg( array() ) ), PHP_URL_PATH ) );
+		$out[]  = array(
+			'label'   => $item['label'],
+			'url'     => $item['url'],
+			'current' => ( '' === $target || '/' === $target ) ? is_front_page() : $target === $here,
+		);
+	}
+
+	return $out;
+}
+
+/**
+ * メニュー項目を1件出力する
+ *
+ * @param array{label:string,url:string,current:bool} $item 項目.
+ */
+function shonan_render_nav_item( $item ) {
+	printf(
+		'<li class="menu-item%s"><a href="%s"%s>%s</a></li>',
+		$item['current'] ? ' current-menu-item' : '',
+		esc_url( $item['url'] ),
+		$item['current'] ? ' aria-current="page"' : '',
+		esc_html( wp_strip_all_tags( $item['label'] ) )
+	);
+}
+
+/**
+ * メインメニューを3つの色グループに分けて出力する
+ */
+function shonan_render_grouped_nav() {
+	$groups = array(
+		'people' => array(),
+		'garden' => array(),
+		'future' => array(),
+	);
+	$loose  = array();
+
+	foreach ( shonan_primary_menu_items() as $item ) {
+		$group = shonan_nav_group_for_title( $item['label'] );
+		if ( ! $group ) {
+			$loose[] = $item;
+			continue;
+		}
+		$groups[ $group[0] ][ $group[1] ] = $item;
+	}
+
+	if ( $loose ) {
+		echo '<ul class="nav-list">';
+		foreach ( $loose as $item ) {
+			shonan_render_nav_item( $item );
+		}
+		echo '</ul>';
+	}
+
+	$labels = array(
+		'people' => '入園のご希望、求職中の方へ、在園の保護者へ',
+		'garden' => '園の方針と特徴、園生活のようす、園の施設',
+		'future' => '半世紀の幼児教育実績、将来の幼児教育',
+	);
+
+	foreach ( $groups as $key => $items ) {
+		if ( ! $items ) {
+			continue;
+		}
+		ksort( $items );
+		printf(
+			'<ul class="nav-group nav-group--%1$s" aria-label="%2$s">',
+			esc_attr( $key ),
+			esc_attr( $labels[ $key ] )
+		);
+		foreach ( $items as $item ) {
+			shonan_render_nav_item( $item );
+		}
+		echo '</ul>';
+	}
 }
 
 /**
@@ -398,13 +540,59 @@ function shonan_swap_parents_nav_order() {
  * @return string
  */
 function shonan_nav_menu_item_title( $title, $item ) {
-	$old = array( '50年の実績', '５０年の実績' );
+	$old = array( '50年の実績', '５０年の実績', '50年の幼児教育実績', '５０年の幼児教育実績' );
 	if ( in_array( $title, $old, true ) ) {
-		return '50年の幼児教育実績';
+		return '半世紀の幼児教育実績';
 	}
 	return $title;
 }
 add_filter( 'nav_menu_item_title', 'shonan_nav_menu_item_title', 10, 2 );
+
+/**
+ * メニューと固定ページの見出しを「半世紀の幼児教育実績」にそろえる
+ */
+function shonan_rename_history_label() {
+	if ( 'hanseiki' === get_option( 'shonan_history_label' ) ) {
+		return;
+	}
+
+	$old = array( '50年の実績', '５０年の実績', '50年の幼児教育実績', '５０年の幼児教育実績' );
+	$new = '半世紀の幼児教育実績';
+
+	$page = get_page_by_path( 'history' );
+	if ( $page && in_array( $page->post_title, $old, true ) ) {
+		wp_update_post(
+			array(
+				'ID'         => $page->ID,
+				'post_title' => $new,
+			)
+		);
+	}
+
+	$menus = wp_get_nav_menus();
+	if ( $menus ) {
+		foreach ( $menus as $menu ) {
+			$items = wp_get_nav_menu_items( $menu->term_id );
+			if ( ! $items ) {
+				continue;
+			}
+			foreach ( $items as $item ) {
+				if ( ! in_array( $item->title, $old, true ) ) {
+					continue;
+				}
+				wp_update_post(
+					array(
+						'ID'         => $item->ID,
+						'post_title' => $new,
+					)
+				);
+			}
+		}
+	}
+
+	update_option( 'shonan_history_label', 'hanseiki' );
+}
+add_action( 'init', 'shonan_rename_history_label' );
 
 /**
  * パンくず

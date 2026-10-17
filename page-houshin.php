@@ -40,30 +40,22 @@ get_header();
 					<p class="policy-pillar__label">経営方針</p>
 					<h2 class="policy-pillar__value">保護者に必要以上の時間的・金銭的負担をかけない</h2>
 				</article>
-			</div>
-		</section>
-
-		<section class="policy-guidance">
-			<header class="section-header">
-				<p class="section-eyebrow">指導方針</p>
-				<h2 class="section-title">質の高い教育・保育を実現します</h2>
-				<p class="section-lead">
-					５０年の歴史ある、ふじ幼児園の良き文化を継承して、「質の高い教育・保育を実現」します。
-				</p>
-			</header>
-
-			<div class="policy-guidance__list">
-				<article class="policy-card">
-					<h3 class="policy-card__title">正しいしつけ</h3>
-					<p class="policy-card__text">普遍的なふるまいを自然に身につけます。</p>
-				</article>
-				<article class="policy-card">
-					<h3 class="policy-card__title">自立</h3>
-					<p class="policy-card__text">「主体」「積極性」「機転」など、生きる力をつけます。</p>
-				</article>
-				<article class="policy-card">
-					<h3 class="policy-card__title">体力づくり</h3>
-					<p class="policy-card__text">湘南体操を基本に、楽しく体を動かします。</p>
+				<article class="policy-pillar policy-pillar--guide">
+					<p class="policy-pillar__label">指導方針</p>
+					<div class="policy-guide">
+						<article class="policy-guide__item">
+							<h3 class="policy-guide__title">正しいしつけ</h3>
+							<p class="policy-guide__text">普遍的なふるまいを自然に身につけます。</p>
+						</article>
+						<article class="policy-guide__item">
+							<h3 class="policy-guide__title">自立</h3>
+							<p class="policy-guide__text">「主体」「積極性」「機転」など、生きる力をつけます。</p>
+						</article>
+						<article class="policy-guide__item">
+							<h3 class="policy-guide__title">体力づくり</h3>
+							<p class="policy-guide__text">湘南体操を基本に、楽しく体を動かします。</p>
+						</article>
+					</div>
 				</article>
 			</div>
 		</section>

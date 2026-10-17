@@ -44,8 +44,15 @@ canvas{display:block;width:100%;height:100%}
 .loading span{font-size:11px;letter-spacing:.22em;color:#8d746c}
 .loading.hidden{display:none}
 @media(max-width:680px){
-  #viewer{left:0;bottom:132px}
-  .rail{top:auto;width:100%;height:auto;flex-direction:row;flex-wrap:wrap;gap:6px;padding:10px}
+  html,body{height:100%;overflow:hidden}
+  body{display:flex;flex-direction:column;height:100%}
+  #viewer{position:relative;flex:1 1 auto;min-height:0;width:100%;top:auto;right:auto;bottom:auto;left:auto}
+  .rail{
+    position:relative;order:1;inset:auto;width:100%;height:auto;max-height:46%;
+    overflow:auto;flex:0 0 auto;flex-direction:column;align-items:stretch;gap:6px;
+    padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));
+    border-right:0;border-top:1px solid rgba(80,50,40,.08);
+  }
   .rail__kicker{display:none}
   .rail__group{flex-direction:row;flex-wrap:wrap}
   .rail button{width:auto;padding:7px 12px;font-size:13px}

@@ -26,11 +26,6 @@ $facilities = array(
 		'image' => $base . 'houle.jpg',
 	),
 	array(
-		'title' => '駐輪場',
-		'text'  => '玄関前に広い駐輪場をご用意しています。自転車を降りてすぐに園舎へ入れます。令和7年3月に舗装整備をしました。',
-		'image' => $base . 'tyurijyou.jpg',
-	),
-	array(
 		'title' => '駐車場',
 		'text'  => '園舎のすぐそばに広い駐車場があります。登園やお迎えのときも、待たずに駐車していただけます。',
 		'image' => $base . 'parking_car.jpg',

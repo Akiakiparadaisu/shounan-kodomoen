@@ -1,6 +1,6 @@
 <?php
 /**
- * 固定ページ: 50年の幼児教育実績（スラッグ: history）
+ * 固定ページ: 半世紀の幼児教育実績（スラッグ: history）
  *
  * @package Shonan_Kodomoen
  */
@@ -24,7 +24,7 @@ $guidance = array(
 
 $activities = array(
 	array(
-		'title' => '重点保育項目',
+		'title' => '職員のレベルアップ（保育重点項目）',
 		'text'  => '毎年テーマを決め、自己研修・発表・実践・成果発表までを一連で行う取り組みです。保育内容と保育者の力を高め、35年間続く園の軸となりました。',
 	),
 	array(
@@ -116,7 +116,7 @@ $media = array(
 						'url'  => '',
 					),
 					array(
-						'text' => '7ch【2008年12月】テレビ東京（Talking Photo）',
+						'text' => '7ch【2008年12月】テレビ東京（しゃべる写真）',
 						'url'  => '',
 					),
 					array(
@@ -160,13 +160,13 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 	<article class="page-article history-page">
 		<header class="page-header history-header">
 			<p class="history-era">ふじ幼児園から 湘南こども園へ</p>
-			<h1 class="page-title">50年の幼児教育実績</h1>
+			<h1 class="page-title">半世紀の幼児教育実績</h1>
 		</header>
 
 		<figure class="policy-visual history-visual">
 			<img
 				src="<?php echo esc_url( shonan_photo( 'history/history_top.png' ) ); ?>"
-				alt="50年の幼児教育実績"
+				alt="半世紀の幼児教育実績"
 				width="1600"
 				height="1000"
 				fetchpriority="high"
@@ -181,14 +181,14 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 						<p class="history-scroll__title">歩み</p>
 						<ol class="history-timeline__list">
 							<li>
-								<span class="history-timeline__mark">始まり</span>
+								<span class="history-timeline__mark">昭和25年</span>
 								<strong>創設の想い</strong>
 								<em>幼児教育への決意</em>
 							</li>
 							<li>
-								<span class="history-timeline__mark">開園直後</span>
-								<strong>園児 13名</strong>
-								<em>公園での説明から</em>
+								<span class="history-timeline__mark">昭和57年</span>
+								<strong>ふじ幼児園を引き継ぐ</strong>
+								<em>園児13名（創設昭和44年）</em>
 							</li>
 							<li>
 								<span class="history-timeline__mark">成長</span>
@@ -196,9 +196,9 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 								<em>当時としては珍しい試み</em>
 							</li>
 							<li>
-								<span class="history-timeline__mark">35年目</span>
+								<span class="history-timeline__mark">平成29年（35年目）</span>
 								<strong>園児 217名</strong>
-								<em>大きな実り</em>
+								<em>湘南こども園創設<br>大きな実り</em>
 							</li>
 							<li>
 								<span class="history-timeline__mark">いま</span>
@@ -220,9 +220,9 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 			<div class="history-compare">
 				<figure class="history-compare__item history-compare__item--past">
 					<div class="history-compare__frame history-photo history-photo--vintage">
-						<img src="<?php echo esc_url( shonan_photo( 'history/why-started/history1.jpg' ) ); ?>" alt="当時のふじ幼児園" loading="lazy">
+						<img src="<?php echo esc_url( shonan_photo( 'history/why-started/history1.jpg' ) ); ?>" alt="創設時のふじ幼児園" loading="lazy">
 					</div>
-					<figcaption><span>当時</span>ふじ幼児園</figcaption>
+					<figcaption><span>創設時</span>ふじ幼児園</figcaption>
 				</figure>
 				<figure class="history-compare__item history-compare__item--now">
 					<div class="history-compare__frame history-photo">
@@ -233,9 +233,9 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 			</div>
 
 			<div class="history-story">
-				<p class="history-story__quote">30年抱き続けた夢が、幼児教育への一歩になりました。</p>
+				<p class="history-story__quote">30年余抱き続けた夢が、幼児教育への一歩になりました。</p>
 				<p>技術者である創設者が20歳のとき、社会の犯罪率の高さに危機感を抱き、将来の凶悪犯罪の増加を予想しました。また、社会に出た際には、成績優秀な人々が成果を上げられない状況に疑問を抱きました。</p>
-				<p>これらの経験から、幼児期の教育の重要性を強く感じ、幼児教育に取り組む決心をしました。その後、30年の間夢を持ち続け、チャンスが訪れました。</p>
+				<p>これらの経験から、幼児期の教育の重要性を強く感じ、いつかは自分の手で幼児教育に取り組む決心をしました。その後、30年の間夢を持ち続け、チャンスが訪れました。</p>
 			</div>
 		</section>
 
@@ -244,28 +244,32 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 				<h2 class="section-title">ふじ幼児園の各種方針</h2>
 			</header>
 
-			<div class="history-pillars">
+			<div class="history-pillars history-pillars--pair">
 				<article class="history-pillar">
 					<p class="history-pillar__label">モットー</p>
-					<h3 class="history-pillar__value">「入ってよかった」と言われる園にする</h3>
-				</article>
-				<article class="history-pillar">
-					<p class="history-pillar__label">スローガン</p>
 					<h3 class="history-pillar__value">園児はわが子</h3>
 				</article>
 				<article class="history-pillar">
-					<p class="history-pillar__label">経営方針</p>
-					<h3 class="history-pillar__value">極力保護者に必要以上の時間的・金銭的負担をかけない</h3>
+					<p class="history-pillar__label">スローガン</p>
+					<h3 class="history-pillar__value">「入ってよかった」と言われる園にする</h3>
 				</article>
 			</div>
 
-			<div class="history-guidance">
-				<?php foreach ( $guidance as $i => $item ) : ?>
-					<article class="history-guidance__card history-guidance__card--<?php echo esc_attr( (string) ( $i + 1 ) ); ?>">
-						<h3><?php echo esc_html( $item['title'] ); ?></h3>
-						<p><?php echo esc_html( $item['text'] ); ?></p>
-					</article>
-				<?php endforeach; ?>
+			<div class="history-keiei">
+				<p class="history-keiei__label">経営方針</p>
+				<h3 class="history-keiei__lead">極力保護者に必要以上の時間的・金銭的負担をかけない</h3>
+			</div>
+
+			<div class="history-shido">
+				<p class="history-keiei__label">指導方針</p>
+				<div class="history-guidance">
+					<?php foreach ( $guidance as $i => $item ) : ?>
+						<article class="history-guidance__card history-guidance__card--<?php echo esc_attr( (string) ( $i + 1 ) ); ?>">
+							<h3><?php echo esc_html( $item['title'] ); ?></h3>
+							<p><?php echo esc_html( $item['text'] ); ?></p>
+						</article>
+					<?php endforeach; ?>
+				</div>
 			</div>
 		</section>
 
@@ -287,7 +291,7 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 			</div>
 
 			<figure class="history-chart" data-enji-chart>
-				<svg class="history-chart__svg" viewBox="0 0 720 420" role="img" aria-label="園児数の推移。13人、43人、47人、80人、35年目に217人">
+				<svg class="history-chart__svg" viewBox="0 0 720 420" role="img" aria-label="園児数の推移。13人、43人、47人、80人、平成29年（35年目）に217人">
 					<defs>
 						<linearGradient id="enjiFill" x1="0" y1="0" x2="0" y2="1">
 							<stop offset="0%" stop-color="#2f8fd4" stop-opacity="0.42" />
@@ -356,15 +360,15 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 							<text x="576" y="64" text-anchor="middle"><tspan class="enji-num" data-n="217" data-delay="1.72">217</tspan>人</text>
 						</g>
 					</g>
-					<text class="enji-year" x="590" y="368">35年目</text>
+					<text class="enji-year" x="590" y="368">平成29年（35年目）</text>
 				</svg>
-				<figcaption>園児数の推移（開始時13人 → 35年目217人）</figcaption>
+				<figcaption>園児数の推移（開始時13人 → 平成29年（35年目）217人）</figcaption>
 			</figure>
 		</section>
 
 		<section class="history-support history-chapter" id="katsudo">
 			<header class="section-header history-section-head">
-				<h2 class="section-title">園を支えた活動</h2>
+				<h2 class="section-title">園を支えた活動(職員を大切に)</h2>
 			</header>
 
 			<div class="history-support__grid">
@@ -379,7 +383,7 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 
 			<?php if ( $katsudo_pdf ) : ?>
 				<p class="history-download">
-					<a class="btn btn--solid" href="<?php echo esc_url( $katsudo_pdf ); ?>" target="_blank" rel="noopener">重点保育項目を見る</a>
+					<a class="btn btn--solid" href="<?php echo esc_url( $katsudo_pdf ); ?>" target="_blank" rel="noopener">重点保育項目</a>
 				</p>
 			<?php endif; ?>
 		</section>
@@ -422,10 +426,11 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 					<h3 class="history-founder__name">林 正幸</h3>
 					<p>電子工学技術者。大手電機メーカーで防衛システム開発に携わりながら幼児教育を始め、53歳で退職後、テクノシステムズ（現：湘南保育）を創立。技術開発事業と幼児教育を推進してきました。</p>
 					<ul>
-						<li>4保育園・こども園の経営</li>
-						<li>技術会社 代表取締役</li>
+						<li>学校法人正栄学園　理事長</li>
+						<li>（株）湘南保育　代表取締役会長</li>
+						<li>（株） テクノシステムズ　代表取締役社長</li>
 						<li>NPO法人科学探検隊 理事長（日本ほか7か国・延べ5,500名の小学生へ理科教室）</li>
-						<li>林財団を設立し、地域・教育支援を実施</li>
+						<li>一般財団法人林財団　理事長</li>
 					</ul>
 				</article>
 				<article class="history-founder">
@@ -433,9 +438,10 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 					<h3 class="history-founder__name">林 榮</h3>
 					<p>現場の保育と新しい企画をつなぐ役割を担い、職員と子どもたちに寄り添いながら園を育ててきました。</p>
 					<ul>
-						<li>ふじ幼児園 園長</li>
-						<li>寒川湘南保育園 園長</li>
-						<li>つきみ野湘南保育園 園長</li>
+						<li>学校法人正栄学園　名誉理事長</li>
+						<li>ふじ幼児園 元園長</li>
+						<li>寒川湘南保育園 元園長</li>
+						<li>つきみ野湘南保育園 元園長</li>
 					</ul>
 				</article>
 			</div>

@@ -36,10 +36,7 @@
 						<span class="site-logo-text__name"><?php bloginfo( 'name' ); ?></span>
 					</span>
 				</a>
-			</div>
-			<div class="site-header__tools">
-				<a class="btn btn--small btn--outline" href="<?php echo esc_url( home_url( '/nyuen/' ) ); ?>">入園案内</a>
-				<a class="btn btn--small btn--solid" href="tel:0467849229">TEL 0467-84-9229</a>
+				<p class="site-motto"><span class="site-motto__wave" aria-hidden="true">〜</span>園児はわが子<sup class="site-motto__r">®</sup><span class="site-motto__wave" aria-hidden="true">〜</span></p>
 			</div>
 			<button
 				class="nav-toggle"
@@ -55,17 +52,7 @@
 		</div>
 
 		<nav class="primary-nav" id="primary-nav" aria-label="メインメニュー">
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'primary',
-					'container'      => false,
-					'menu_class'     => 'nav-list',
-					'fallback_cb'    => 'shonan_fallback_menu',
-					'depth'          => 2,
-				)
-			);
-			?>
+			<?php shonan_render_grouped_nav(); ?>
 			<div class="primary-nav__cta">
 				<a class="btn btn--small btn--outline" href="<?php echo esc_url( home_url( '/nyuen/' ) ); ?>">入園案内</a>
 				<a class="btn btn--small btn--solid" href="tel:0467849229">TEL 0467-84-9229</a>

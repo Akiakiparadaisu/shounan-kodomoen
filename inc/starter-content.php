@@ -37,7 +37,7 @@ function shonan_theme_create_starter_pages() {
 			'content' => '',
 		),
 		'history'    => array(
-			'title'   => '50年の幼児教育実績',
+			'title'   => '半世紀の幼児教育実績',
 			'content' => '',
 		),
 		'mirai'      => array(
@@ -132,7 +132,7 @@ function shonan_theme_create_starter_pages() {
 			array( 'title' => '園の施設', 'slug' => 'shisetsu' ),
 			array( 'title' => '入園のご希望', 'slug' => 'nyuen' ),
 			array( 'title' => '求職中の方へ', 'slug' => 'kyujin' ),
-			array( 'title' => '50年の幼児教育実績', 'slug' => 'history' ),
+			array( 'title' => '半世紀の幼児教育実績', 'slug' => 'history' ),
 			array( 'title' => '将来の幼児教育', 'slug' => 'mirai' ),
 			array( 'title' => '在園の保護者へ', 'url' => home_url( '/shorui/' ) ),
 		);

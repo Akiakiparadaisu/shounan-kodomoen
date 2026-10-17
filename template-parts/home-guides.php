@@ -21,17 +21,17 @@ $guides = array(
 		'lead'  => '50年の実績と職場環境',
 		'image' => 'top/1_ev-2.jpg',
 		'links' => array(
-			array( 'label' => '50年の幼児教育実績', 'url' => '/history/' ),
+			array( 'label' => '半世紀の幼児教育実績', 'url' => '/history/' ),
 			array( 'label' => '園の方針と特徴', 'url' => '/houshin/' ),
 			array( 'label' => '園で働きたい方へ', 'url' => '/kyujin/' ),
 		),
 	),
 	array(
-		'title' => '園について詳しく',
+		'title' => '園に興味のある方へ',
 		'lead'  => '歴史とこれからの幼児教育',
 		'image' => 'top/history1.jpg',
 		'links' => array(
-			array( 'label' => '50年の幼児教育実績', 'url' => '/history/' ),
+			array( 'label' => '半世紀の幼児教育実績', 'url' => '/history/' ),
 			array( 'label' => '園の施設・アクセス', 'url' => '/shisetsu/' ),
 			array( 'label' => '将来の幼児教育', 'url' => '/mirai/' ),
 		),
@@ -42,7 +42,7 @@ $guides = array(
 	<div class="section__inner">
 		<header class="section-header reveal" data-reveal>
 			<p class="section-eyebrow">ご案内</p>
-			<h2 class="section-title">なにを知りたい？</h2>
+			<h2 class="section-title">もっと知りたい？</h2>
 			<p class="section-lead">保護者さん・就職希望の方・園のことをもっと知りたい方へ。</p>
 		</header>
 

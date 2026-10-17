@@ -164,7 +164,6 @@ $moushikomi = shonan_document( 'houshin/pre-hoiku/shonan-junior-moushikomi.pdf' 
 				>
 					申込書をダウンロード（PDF）
 				</a>
-				<p class="pre-overview__cta-note">湘南ジュニア入会申込書（PDF）</p>
 				<?php $junior_poster = shonan_managed_document_url( 'junior' ); ?>
 				<?php if ( $junior_poster ) : ?>
 					<a

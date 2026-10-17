@@ -36,7 +36,7 @@ kyujin/                       … 求職中の方へ
   shokuba/                    … 湘南こども園の職場環境
   access/                     … アクセス
 
-history/                      … 50年の幼児教育実績
+history/                      … 半世紀の幼児教育実績
   history.svg
   why-started/                … なぜ幼児教育を始めたのか？
   fuji-houshin/               … ふじ幼児園の各種方針
