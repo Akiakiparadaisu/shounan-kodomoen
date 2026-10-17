@@ -38,17 +38,26 @@
 				</a>
 				<p class="site-motto"><span class="site-motto__wave" aria-hidden="true">〜</span>園児はわが子<sup class="site-motto__r">®</sup><span class="site-motto__wave" aria-hidden="true">〜</span></p>
 			</div>
-			<button
-				class="nav-toggle"
-				type="button"
-				aria-controls="primary-nav"
-				aria-expanded="false"
-				aria-label="メニューを開く"
-			>
-				<span class="nav-toggle__bar"></span>
-				<span class="nav-toggle__bar"></span>
-				<span class="nav-toggle__bar"></span>
-			</button>
+			<div class="site-header__actions">
+				<button
+					class="site-map-open"
+					type="button"
+					aria-haspopup="dialog"
+					aria-controls="site-map"
+					aria-label="園の構成図を開く"
+				>構成図</button>
+				<button
+					class="nav-toggle"
+					type="button"
+					aria-controls="primary-nav"
+					aria-expanded="false"
+					aria-label="メニューを開く"
+				>
+					<span class="nav-toggle__bar"></span>
+					<span class="nav-toggle__bar"></span>
+					<span class="nav-toggle__bar"></span>
+				</button>
+			</div>
 		</div>
 
 		<nav class="primary-nav" id="primary-nav" aria-label="メインメニュー">
@@ -59,6 +68,7 @@
 			</div>
 		</nav>
 	</div>
+	<?php get_template_part( 'template-parts/site-map' ); ?>
 </header>
 
 <main id="main-content" class="site-main">

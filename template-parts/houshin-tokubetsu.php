@@ -9,8 +9,9 @@
  * }
  */
 
-$standalone = ! empty( $args['standalone'] );
-$base       = 'houshin/tokubetsu-hoiku/';
+$standalone  = ! empty( $args['standalone'] );
+$base        = 'houshin/tokubetsu-hoiku/';
+$katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 
 $programs = array(
 	array(
@@ -86,7 +87,9 @@ $programs = array(
 				<div class="special-block__body<?php echo ! empty( $program['items'] ) ? ' special-block__body--full' : ''; ?>">
 					<h3 class="special-block__title">
 						<?php echo esc_html( $program['title'] ); ?>
-						<?php if ( ! empty( $program['note'] ) ) : ?>
+						<?php if ( ! empty( $program['note'] ) && $katsudo_pdf ) : ?>
+							<a class="special-block__note" href="<?php echo esc_url( $katsudo_pdf ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $program['note'] ); ?></a>
+						<?php elseif ( ! empty( $program['note'] ) ) : ?>
 							<span class="special-block__note"><?php echo esc_html( $program['note'] ); ?></span>
 						<?php endif; ?>
 					</h3>

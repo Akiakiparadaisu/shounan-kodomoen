@@ -340,6 +340,128 @@ function shonan_render_grouped_nav() {
 }
 
 /**
+ * 各ページの中身へ直接飛べる構成図
+ *
+ * @return array<int, array{key:string,label:string,pages:array<int, array{label:string,url:string,sections:array<int, array{label:string,url:string}>}>}>
+ */
+function shonan_site_map_groups() {
+	return array(
+		array(
+			'key'   => 'people',
+			'label' => '入園・採用・保護者',
+			'pages' => array(
+				array(
+					'label'    => '入園のご希望',
+					'url'      => home_url( '/nyuen/' ),
+					'sections' => array(
+						array( 'label' => '対象児・定員', 'url' => home_url( '/nyuen/#taishoji-teiin' ) ),
+						array( 'label' => '園見学', 'url' => home_url( '/nyuen/#kengaku' ) ),
+						array( 'label' => '入園説明会', 'url' => home_url( '/nyuen/#nyuen-setsumeikai' ) ),
+						array( 'label' => '入園願書', 'url' => home_url( '/nyuen/#gansho' ) ),
+						array( 'label' => '保育時間', 'url' => home_url( '/nyuen/#hoiku-jikan' ) ),
+						array( 'label' => '制服と体操服', 'url' => home_url( '/nyuen/#seifuku' ) ),
+						array( 'label' => '湘南ジュニア', 'url' => home_url( '/nyuen/#shonan-junior' ) ),
+					),
+				),
+				array(
+					'label'    => '求職中の方へ',
+					'url'      => home_url( '/kyujin/' ),
+					'sections' => array(
+						array( 'label' => '園長メッセージ', 'url' => home_url( '/kyujin/#message' ) ),
+						array( 'label' => '職場環境', 'url' => home_url( '/kyujin/#shokuba' ) ),
+						array( 'label' => 'アクセス', 'url' => home_url( '/kyujin/#access' ) ),
+					),
+				),
+				array(
+					'label'    => '在園の保護者へ',
+					'url'      => home_url( '/shorui/' ),
+					'sections' => array(
+						array( 'label' => '保護者向け資料', 'url' => home_url( '/shorui/#hogosha-shiryo' ) ),
+					),
+				),
+			),
+		),
+		array(
+			'key'   => 'garden',
+			'label' => '園のこと',
+			'pages' => array(
+				array(
+					'label'    => '園の方針と特長',
+					'url'      => home_url( '/houshin/' ),
+					'sections' => array(
+						array( 'label' => 'モットーと方針', 'url' => home_url( '/houshin/#en-no-houshin' ) ),
+						array( 'label' => '特別保育', 'url' => home_url( '/houshin/#tokubetsu-hoiku' ) ),
+						array( 'label' => '理科教室', 'url' => home_url( '/houshin/#rika' ) ),
+						array( 'label' => '国際感覚', 'url' => home_url( '/houshin/#kokusai' ) ),
+						array( 'label' => '伝統文化', 'url' => home_url( '/houshin/#bunka' ) ),
+						array( 'label' => 'むし歯０活動', 'url' => home_url( '/houshin/#mushiba' ) ),
+						array( 'label' => '湘南ジュニア', 'url' => home_url( '/houshin/#pre-hoiku' ) ),
+						array( 'label' => '誰でも通園', 'url' => home_url( '/houshin/#daredemo-tsuen' ) ),
+					),
+				),
+				array(
+					'label'    => '園生活のようす',
+					'url'      => home_url( '/enseikatsu/' ),
+					'sections' => array(
+						array( 'label' => '一日の流れ', 'url' => home_url( '/enseikatsu/#ichinichi-no-nagare' ) ),
+						array( 'label' => '年間行事', 'url' => home_url( '/enseikatsu/#nenkan-gyoji' ) ),
+						array( 'label' => '安全・衛生管理', 'url' => home_url( '/enseikatsu/#anzen-eisei' ) ),
+						array( 'label' => '食育', 'url' => home_url( '/enseikatsu/#shokuiku' ) ),
+						array( 'label' => '園バス', 'url' => home_url( '/enseikatsu/#en-bus' ) ),
+					),
+				),
+				array(
+					'label'    => '園の施設',
+					'url'      => home_url( '/shisetsu/' ),
+					'sections' => array(
+						array( 'label' => '園庭', 'url' => home_url( '/shisetsu/#entei' ) ),
+						array( 'label' => 'こどもトイレ', 'url' => home_url( '/shisetsu/#kodomo-toilet' ) ),
+						array( 'label' => 'ホール', 'url' => home_url( '/shisetsu/#hall' ) ),
+						array( 'label' => '駐車場', 'url' => home_url( '/shisetsu/#parking' ) ),
+						array( 'label' => 'ソーラーパネル', 'url' => home_url( '/shisetsu/#solar' ) ),
+						array( 'label' => 'エレベーター', 'url' => home_url( '/shisetsu/#elevator' ) ),
+						array( 'label' => '教室（保育）', 'url' => home_url( '/shisetsu/#kyoshitsu' ) ),
+						array( 'label' => '教室（年少〜年長）', 'url' => home_url( '/shisetsu/#kyoshitsu-nencho' ) ),
+						array( 'label' => '湘南ジュニア＆誰でも通園の建物', 'url' => home_url( '/shisetsu/#jr-building' ) ),
+						array( 'label' => 'アクセス', 'url' => home_url( '/shisetsu/#access' ) ),
+					),
+				),
+			),
+		),
+		array(
+			'key'   => 'future',
+			'label' => '歩みとこれから',
+			'pages' => array(
+				array(
+					'label'    => '半世紀の幼児教育実績',
+					'url'      => home_url( '/history/' ),
+					'sections' => array(
+						array( 'label' => 'なぜ始めたのか', 'url' => home_url( '/history/#why-started' ) ),
+						array( 'label' => '各種方針', 'url' => home_url( '/history/#fuji-houshin' ) ),
+						array( 'label' => '園児確保', 'url' => home_url( '/history/#enji-kakuho' ) ),
+						array( 'label' => '支えた活動', 'url' => home_url( '/history/#katsudo' ) ),
+						array( 'label' => '園の実績', 'url' => home_url( '/history/#jisseki' ) ),
+						array( 'label' => '運営者', 'url' => home_url( '/history/#unei' ) ),
+						array( 'label' => '科学探検隊', 'url' => home_url( '/history/#kagaku' ) ),
+						array( 'label' => 'メディア', 'url' => home_url( '/history/#media' ) ),
+					),
+				),
+				array(
+					'label'    => '将来の幼児教育',
+					'url'      => home_url( '/mirai/' ),
+					'sections' => array(
+						array( 'label' => '研究の構想', 'url' => home_url( '/mirai/#kenkyu' ) ),
+						array( 'label' => '脳の発達に合わせた保育', 'url' => home_url( '/mirai/#nou' ) ),
+						array( 'label' => 'メタバース', 'url' => home_url( '/mirai/#metaverse' ) ),
+						array( 'label' => 'レジリエンス', 'url' => home_url( '/mirai/#resilience' ) ),
+					),
+				),
+			),
+		),
+	);
+}
+
+/**
  * 「これまでの活動」投稿一覧ページのURL
  *
  * @return string

@@ -38,7 +38,7 @@ $docs = array(
 			<p class="section-lead">在園中のご家庭向けのご案内です。</p>
 		</header>
 
-		<section class="shorui-docs">
+		<section class="shorui-docs" id="hogosha-shiryo">
 			<header class="section-header">
 				<h2 class="section-title">こども園の保護者の方に関する資料</h2>
 			</header>

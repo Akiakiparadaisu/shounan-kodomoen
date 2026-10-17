@@ -26,11 +26,12 @@ get_header();
 			>
 		</figure>
 
-		<section class="policy-intro">
+		<section class="policy-intro" id="en-no-houshin">
 			<div class="policy-pillars">
 				<article class="policy-pillar">
 					<p class="policy-pillar__label">モットー</p>
 					<h2 class="policy-pillar__value">園児はわが子</h2>
+					<p class="mission__text">多くの職員の目で、園児一人ひとりの個性や発達を丁寧に把握し、チームで教育と保育にあたります。</p>
 				</article>
 				<article class="policy-pillar">
 					<p class="policy-pillar__label">スローガン</p>

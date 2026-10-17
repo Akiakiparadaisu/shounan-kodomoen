@@ -69,6 +69,18 @@ function shonan_content_photo_catalog() {
 				'path'  => 'top/kanrensosiki/tukiho.png',
 				'label' => '関連：つきみ野湘南保育園',
 			),
+			array(
+				'path'  => 'top/kanrensosiki/テクノシステムズ.png',
+				'label' => '関連：（株）テクノシステムズ',
+			),
+			array(
+				'path'  => 'top/kanrensosiki/林財団.jpg',
+				'label' => '関連：一般財団法人林財団',
+			),
+			array(
+				'path'  => 'top/kanrensosiki/科学探検隊ロゴマーク.png',
+				'label' => '関連：NPO法人科学探検隊',
+			),
 		),
 		'園の方針' => array(
 			array(
@@ -198,6 +210,7 @@ function shonan_content_photo_catalog() {
 			array( 'path' => $room . 'elevator.jpg', 'label' => 'エレベーター' ),
 			array( 'path' => $room . 'classroom1.jpg', 'label' => '教室（保育）' ),
 			array( 'path' => $room . 'classroom2.jpg', 'label' => '教室（年少〜年長）' ),
+			array( 'path' => $room . 'jr-building.jpg', 'label' => '湘南ジュニア＆誰でも通園の建物' ),
 		),
 		'入園のご希望' => array(
 			array( 'path' => 'nyuen/seifuku/seifuku01.jpg', 'label' => '制服 1' ),

@@ -44,8 +44,8 @@
       return;
     }
 
-    var min = 10;
-    var max = 16.5;
+    var min = 12;
+    var max = 34;
     var low = min;
     var high = max;
     var size = max;
@@ -62,8 +62,17 @@
       if (nav.scrollWidth > nav.clientWidth + 1) {
         return true;
       }
-      var first = nav.firstElementChild;
-      return !!(first && nav.scrollHeight > first.offsetHeight + 6);
+      var kids = nav.children;
+      if (!kids.length) {
+        return false;
+      }
+      var top = kids[0].offsetTop;
+      for (var i = 1; i < kids.length; i += 1) {
+        if (kids[i].offsetTop > top + 4) {
+          return true;
+        }
+      }
+      return false;
     }
 
     apply(max);
@@ -81,6 +90,31 @@
       }
     }
     apply(low);
+  }
+
+  var siteMap = document.getElementById('site-map');
+  var siteMapOpen = document.querySelector('.site-map-open');
+  if (siteMap && siteMapOpen && typeof siteMap.showModal === 'function') {
+    siteMapOpen.addEventListener('click', function () {
+      siteMap.showModal();
+    });
+    siteMap.addEventListener('click', function (event) {
+      if (event.target === siteMap || event.target.closest('[data-site-map-close]')) {
+        siteMap.close();
+        return;
+      }
+      var link = event.target.closest('a');
+      if (!link) {
+        return;
+      }
+      var href = link.getAttribute('href');
+      if (!href) {
+        return;
+      }
+      event.preventDefault();
+      siteMap.close();
+      window.location.href = href;
+    });
   }
 
   fitPrimaryNav();

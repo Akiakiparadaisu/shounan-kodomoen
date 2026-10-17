@@ -97,6 +97,14 @@ $media = array(
 						'text' => '【2006年1月】龍江新聞（子供理科教室でカイトプレーン作り）',
 						'file' => 'history/katsudo/kagakutankentai/200601龍江.pdf',
 					),
+					array(
+						'text' => '【2006年7月29日】カナダの新聞',
+						'file' => 'history/katsudo/kagakutankentai/20060729カナダの新聞.pdf',
+					),
+					array(
+						'text' => '【2008年8月26日】韓国の新聞',
+						'file' => 'history/katsudo/kagakutankentai/20080626韓国の新聞.pdf',
+					),
 				),
 			),
 		),

@@ -11,6 +11,7 @@ $katsudo_pdf = shonan_document( 'history/katsudo/item_31.pdf' );
 
 $pillars = array(
 	array(
+		'id'         => 'nou',
 		'num'        => '01',
 		'title'      => '脳の発達に合わせた保育',
 		'sub'        => '内側からの保育',
@@ -21,6 +22,7 @@ $pillars = array(
 		),
 	),
 	array(
+		'id'         => 'metaverse',
 		'num'        => '02',
 		'title'      => 'メタバースを活用した保育活動',
 		'sub'        => '技術との上手な付き合い方',
@@ -31,6 +33,7 @@ $pillars = array(
 		),
 	),
 	array(
+		'id'     => 'resilience',
 		'num'    => '03',
 		'title'  => 'レジリエンスを育む幼児教育',
 		'sub'    => '折れない心、立ち直る力',
@@ -73,7 +76,7 @@ $pillars = array(
 
 			<div class="mirai-pillars__list">
 				<?php foreach ( $pillars as $i => $pillar ) : ?>
-					<article class="mirai-pillar mirai-pillar--<?php echo esc_attr( (string) ( $i + 1 ) ); ?>">
+					<article class="mirai-pillar mirai-pillar--<?php echo esc_attr( (string) ( $i + 1 ) ); ?>" id="<?php echo esc_attr( $pillar['id'] ); ?>">
 						<div class="mirai-pillar__label">
 							<span class="mirai-pillar__num"><?php echo esc_html( $pillar['num'] ); ?></span>
 							<p class="mirai-pillar__sub"><?php echo esc_html( $pillar['sub'] ); ?></p>

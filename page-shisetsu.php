@@ -11,44 +11,58 @@ $base = 'shisetsu/ensha/';
 
 $facilities = array(
 	array(
+		'id'    => 'entei',
 		'title' => '園庭',
 		'text'  => 'さまざまな遊具がそろい、自分の遊びも友だちとの遊びも思う存分楽しめる広さです。園庭開放も行っており、地域の方々にもご利用いただいています。',
 		'image' => $base . 'entei.jpg',
 	),
 	array(
+		'id'    => 'kodomo-toilet',
 		'title' => 'こどもトイレ',
 		'text'  => '外で遊んでいても、すぐにトイレに行けるように配慮しています。',
 		'image' => $base . 'toilet.jpg',
 	),
 	array(
+		'id'    => 'hall',
 		'title' => 'ホール（講堂）',
 		'text'  => '入園式・卒園式などの式典だけでなく、巧技台を使った体操や英語などの教育プログラム、雨天時の遊びなど、さまざまに利用しています。',
 		'image' => $base . 'houle.jpg',
 	),
 	array(
+		'id'    => 'parking',
 		'title' => '駐車場',
 		'text'  => '園舎のすぐそばに広い駐車場があります。登園やお迎えのときも、待たずに駐車していただけます。',
 		'image' => $base . 'parking_car.jpg',
 	),
 	array(
+		'id'    => 'solar',
 		'title' => 'ソーラーパネル',
 		'text'  => '屋上にソーラーパネルを設置し、太陽光で発電した電力を園舎の照明等に用いています。自然エネルギーの取り組みが、子どもたちの環境への関心につながることを願っています。',
 		'image' => $base . 'solar_panel.jpg',
 	),
 	array(
+		'id'    => 'elevator',
 		'title' => 'エレベーター',
 		'text'  => '入園式や卒園式などで保護者の方にご不便のないよう、エレベーターを設置しています。',
 		'image' => $base . 'elevator.jpg',
 	),
 	array(
+		'id'    => 'kyoshitsu',
 		'title' => '教室（保育）',
 		'text'  => '机と椅子は子どもに適したサイズで、黄色を基調とした親しみやすいデザインです。',
 		'image' => $base . 'classroom1.jpg',
 	),
 	array(
+		'id'    => 'kyoshitsu-nencho',
 		'title' => '教室（年少〜年長）',
 		'text'  => '壁には子どもたちの絵がたくさん展示されています。多様なテーマで描かれた作品が、創造力や表現力を育む環境をつくっています。',
 		'image' => $base . 'classroom2.jpg',
+	),
+	array(
+		'id'    => 'jr-building',
+		'title' => '湘南ジュニア＆誰でも通園の建物',
+		'text'  => '未就園児が過ごすための、専用の建物です。ここでは、誰でも通園と湘南ジュニア教室を実施しています。',
+		'image' => $base . 'jr-building.jpg',
 	),
 );
 ?>
@@ -86,7 +100,7 @@ $facilities = array(
 
 			<div class="facility-gallery__grid">
 				<?php foreach ( $facilities as $i => $item ) : ?>
-					<article class="facility-card facility-card--<?php echo esc_attr( (string) ( ( $i % 3 ) + 1 ) ); ?>">
+					<article class="facility-card facility-card--<?php echo esc_attr( (string) ( ( $i % 3 ) + 1 ) ); ?>" id="<?php echo esc_attr( $item['id'] ); ?>">
 						<figure class="facility-card__media">
 							<img
 								src="<?php echo esc_url( shonan_photo( $item['image'] ) ); ?>"
