@@ -77,7 +77,12 @@ function shonan_photo_key( $relative ) {
 function shonan_photo_file_url( $relative ) {
 	$relative = shonan_photo_key( $relative );
 	$parts    = array_map( 'rawurlencode', explode( '/', $relative ) );
-	return SHONAN_THEME_URI . '/assets/images/photos/' . implode( '/', $parts );
+	$url      = SHONAN_THEME_URI . '/assets/images/photos/' . implode( '/', $parts );
+	$file     = SHONAN_THEME_DIR . '/assets/images/photos/' . $relative;
+	if ( is_file( $file ) ) {
+		$url .= '?v=' . rawurlencode( (string) filemtime( $file ) );
+	}
+	return $url;
 }
 
 /**
