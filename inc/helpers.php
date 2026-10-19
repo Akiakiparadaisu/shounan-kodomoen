@@ -451,6 +451,7 @@ function shonan_site_map_groups() {
 					'url'      => home_url( '/mirai/' ),
 					'sections' => array(
 						array( 'label' => '研究の構想', 'url' => home_url( '/mirai/#kenkyu' ) ),
+						array( 'label' => '社会犯罪を減少させるための幼児教育', 'url' => home_url( '/mirai/#shakai' ) ),
 						array( 'label' => '脳の発達に合わせた保育', 'url' => home_url( '/mirai/#nou' ) ),
 						array( 'label' => 'メタバース', 'url' => home_url( '/mirai/#metaverse' ) ),
 						array( 'label' => 'レジリエンス', 'url' => home_url( '/mirai/#resilience' ) ),

@@ -39,13 +39,16 @@
 				<p class="site-motto"><span class="site-motto__wave" aria-hidden="true">〜</span>園児はわが子<sup class="site-motto__r">®</sup><span class="site-motto__wave" aria-hidden="true">〜</span></p>
 			</div>
 			<div class="site-header__actions">
-				<button
-					class="site-map-open"
-					type="button"
-					aria-haspopup="dialog"
-					aria-controls="site-map"
-					aria-label="園の構成図を開く"
-				>構成図</button>
+				<div class="site-map-launch">
+					<button
+						class="site-map-open"
+						type="button"
+						aria-haspopup="dialog"
+						aria-controls="site-map"
+						aria-label="園の構成図を開く"
+					>構成図</button>
+					<p class="site-map-launch__note">（ワンタッチで目的の情報へ）</p>
+				</div>
 				<button
 					class="nav-toggle"
 					type="button"

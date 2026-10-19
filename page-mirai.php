@@ -56,11 +56,14 @@ $pillars = array(
 			<div class="mirai-intro__panel">
 				<p class="mirai-intro__eyebrow">幼児教育研究部の構想</p>
 				<h2 class="mirai-intro__title">（株）湘南保育 幼児教育研究部が目指す新しい幼児教育</h2>
-				<ul class="mirai-intro__keywords" aria-label="3つの柱">
-					<?php foreach ( $pillars as $pillar ) : ?>
-						<li><?php echo esc_html( $pillar['title'] ); ?></li>
-					<?php endforeach; ?>
-				</ul>
+				<div class="mirai-intro__focus">
+					<p class="mirai-intro__aim" id="shakai">社会犯罪を減少させるための幼児教育</p>
+					<ul class="mirai-intro__keywords" aria-label="3つの柱">
+						<?php foreach ( $pillars as $pillar ) : ?>
+							<li><?php echo esc_html( $pillar['title'] ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
 				<p>幼児教育研究部は、社会犯罪を減少させるための幼児教育の開発を目的に日々研究をしています。そのために、VR、AI、脳科学、犯罪心理学といった新たな技術や知見を活用しています。</p>
 				<p>これまでの幼児教育の良い部分は守り、新しい研究成果や新技術をうまく活かして、新しい幼児教育づくりにチャレンジしていきます。</p>
 				<p class="mirai-intro__note">令和6年4月より、湘南こども園と湘南保育社の4つの保育園の協力を得て研究を開始しています。</p>
