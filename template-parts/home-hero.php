@@ -25,6 +25,21 @@ $hero_src = shonan_placeholder( 'top' );
 		</svg>
 	</div>
 	<div class="hero__veil" aria-hidden="true"></div>
+	<div class="hero-town" aria-hidden="true">
+		<span class="hero-town__drop"></span>
+		<span class="hero-town__drop"></span>
+		<span class="hero-town__drop"></span>
+		<span class="hero-town__drop"></span>
+		<span class="hero-town__drop"></span>
+		<span class="hero-town__drop"></span>
+		<span class="hero-town__drop"></span>
+		<span class="hero-town__drop"></span>
+		<span class="hero-town__drop"></span>
+		<div class="hero-town__stage">
+			<p class="hero-town__name">寒川町</p>
+			<div class="hero-town__map" style="--town-mask: url('<?php echo esc_url( shonan_photo( 'top/samukawa.png' ) ); ?>')"></div>
+		</div>
+	</div>
 	<div class="hero-paint" aria-hidden="true">
 		<img
 			class="hero-paint__brush"
@@ -202,8 +217,10 @@ $hero_src = shonan_placeholder( 'top' );
 		window.requestAnimationFrame(frame);
 	}
 
-	hero.classList.add('is-painting');
-	window.requestAnimationFrame(frame);
+	window.setTimeout(function () {
+		hero.classList.add('is-painting');
+		window.requestAnimationFrame(frame);
+	}, 2500);
 	window.addEventListener('resize', layout);
 })();
 </script>

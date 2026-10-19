@@ -47,7 +47,7 @@
 						aria-controls="site-map"
 						aria-label="園の構成図を開く"
 					>構成図</button>
-					<p class="site-map-launch__note">（ワンタッチで目的の情報へ）</p>
+					<p class="site-map-launch__note">（<span class="site-map-launch__tap">ワンタッチ</span>で目的の情報へ）</p>
 				</div>
 				<button
 					class="nav-toggle"
